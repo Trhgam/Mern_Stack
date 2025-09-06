@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bai tap 2.2</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      table,
+      table td {
+        border: 1px solid black;
+        /* border-collapse: collapse; */
+      }
+      table {
+        margin: 0 auto;
+        width: 60%;
+      }
+      .dang-ky_td {
+        text-align: center;
+        font-weight: 700;
+      }
+      .dang-ky {
+        display: inline-block;
+        margin: 0;
+        padding: 5px;
+      }
+      .require {
+        width: 30%;
+        padding-left: 5px;
+      }
+      .require-detail {
+        padding-left: 5px;
+      }
+      .end-content {
+        text-align: center;
+      }
+      .input-data {
+        color: grey;
+        border: 1px solid grey;
+        width: 80%;
+      }
+      .gender {
+        background-color: grey;
+      }
+      .option_birthday {
+        border: none;
+      }
+      .div-birthday {
+        border: 1px solid grey;
+        width: 25%;
+        margin: 0 1px;
+      }
+      .end-content {
+        width: 335%;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .reset {
+        border: 1px solid rgb(201, 195, 195);
+        background-color: rgb(232, 232, 228);
+        padding: 2px 3px;
+      }
+      .ok {
+        border: 1px solid rgb(201, 195, 195);
+        background-color: rgb(232, 232, 228);
+        padding: 2px 3px;
+        margin-left: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <table>
+      <tr>
+        <td class="dang-ky_td" colspan="2">
+          <p class="dang-ky">ĐĂNG KÝ</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="require">Full name</td>
+        <td class="require-detail">
+          <input class="input-data" type="text" value="Nhập full name" />
+        </td>
+      </tr>
+      <tr>
+        <td class="require">Username</td>
+        <td class="require-detail">
+          <input class="input-data" type="text" value="Nhập tên" />
+        </td>
+      </tr>
+      <tr>
+        <td class="require">Password</td>
+        <td class="require-detail">
+          <input class="input-data" type="text" value="Nhập mật khẩu" />
+        </td>
+      </tr>
+      <tr>
+        <td class="require">
+          Nhập lại <br />
+          password
+        </td>
+        <td class="require-detail">
+          <input class="input-data" type="text" value="Nhập lại mật khẩu" />
+        </td>
+      </tr>
+      <tr>
+        <td class="require">Giới tính</td>
+        <td class="require-detail">
+          <input
+            class="gender"
+            id="nam"
+            value="nam"
+            type="radio"
+            name="gender"
+          />
+          <label for="nam">Nam</label>
+          <input class="gender" id="nu" value="nu" type="radio" name="gender" />
+          <label for="nu">Nữ</label>
+        </td>
+      </tr>
+      <tr>
+        <td class="require">Ngày sinh</td>
+        <td class="require-detail">
+          <span class="div-birthday">
+            <label for="day">Ngày:</label>
+            <select class="option_birthday" id="day" name="day">
+              <option value="1">1</option>
+            </select>
+          </span>
+          <span class="div-birthday">
+            <label for="month">Tháng:</label>
+            <select class="option_birthday" id="month" name="month">
+              <option value="1">1</option>
+            </select>
+          </span>
+          <span class="div-birthday">
+            <label for="year">Năm:</label>
+            <select class="option_birthday" id="year" name="year">
+              <option value="2025">2025</option>
+            </select>
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td class="require">Địa chỉ</td>
+        <td class="require-detail">
+          <textarea style="min-width: 100px; max-width: 200px"></textarea>
+        </td>
+      </tr>
+      <tr>
+        <td class="require">Avatar</td>
+        <td class="require-detail">
+          <input type="file" />
+        </td>
+      </tr>
+      <tr>
+        <td class="require">Sở thích</td>
+        <td class="require-detail">
+          <input
+            class="habbit"
+            id="movie"
+            value="Xemphim"
+            type="checkbox"
+            name="habbit"
+          />
+          <label for="habbit">Xem phim</label>
+          <input
+            class="habbit"
+            id="Thethao"
+            value="Thethao"
+            type="checkbox"
+            name="habbit"
+          />
+          <label for="nu">Thể thao</label>
+          <input
+            class="habbit"
+            id="Wed"
+            value="Wed"
+            type="checkbox"
+            name="habbit"
+          />
+          <label for="nu">Wed</label>
+        </td>
+      </tr>
+      <tr>
+        <td class="require end-content" colspan="2">
+          <span class="reset"> Reset </span>
+          <span class="ok"> Ok </span>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

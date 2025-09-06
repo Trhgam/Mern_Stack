@@ -1,0 +1,46 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html{
+    font-size: 62.5%;
+    font-family: sans-serif;
+}
+body{
+    font-size: 1.6rem;
+}
+.container{
+    /* border: 1px solid black;  */
+    max-width: 1320px;
+    margin: 0 auto;
+}
+.bid_div{
+    display: flex;
+    flex-wrap: wrap;
+}
+.col_big{
+    width: 25%;
+    /* border: 1px solid red; */
+    height: 70vh;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-between;
+}
+.div_element{
+    border: 2px solid black;
+    margin-right: 1rem;
+    width: 100%;
+}
+.div_element_top{
+    height: 59% ;
+}
+.div_element_bot{
+    height: 39%;
+}
+
+
+
+
+
