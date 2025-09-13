@@ -1,0 +1,75 @@
+/* reset css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* medium 16px * 62.5 -> 10px không được fix cứng, tránh fix cứng nên dùng phần trăm
+nếu font-size ở trạng thái medium sẽ là 10px  nên chỉnh lại 16px ở phần body */
+html {
+  font-size: 62.5%;
+}
+/* fix font-size lại về 16px */
+body {
+  font-size: 1.6rem;
+}
+
+/* unit size : đơn vị đo
+- absolute unit(đơn vị tiêu chuẩn): px cm mm
+-% : % tương ứng với kích thước thuộc tính của cha
+font-size mặc định 116px.% lệ thuộc vào đối tượng bên ngoài nó
+    thằng lớp ngoài cùng bắt buộc phải là px , ko được %
+    những thằng % sẽ bị biến dạng theo màn hình 
+    ==> chỉ dùng % với những bức hình hoàn hảo hoặc gần hoàn hảo
+-em : 1 em bằng font-size của cha 
+-rem : 1 rem = 1 font-size của html 
+khi dùng rem phải chia cho 16 ở chế độ medium ,nên phải set font-size 
+
+tại sao có đơn vị dựa trên font-size html
+
+*/
+.demo-inp {
+  margin: 3rem;
+  outline: none;
+  outline: 0.3rem solid red;
+  outline-offset: 0.1rem;
+}
+/* outline-offset khoảng cách từ outline đến border */
+.demo-border {
+  border-top: 5rem solid black;
+  border-left: 5rem solid blue;
+  border-bottom: 5rem solid green;
+  border-right: 5rem solid red;
+  /* border-radius:50% ; */
+  width: 10rem;
+  height: 10rem;
+  margin: 1rem;
+  transition: 5s;
+}
+.demo-border:hover {
+  transform: rotate(100000deg) scale(10);
+  border-radius: 50%;
+}
+.demo-text {
+  color: teal;
+  background-color: lightseagreen;
+  font-size: 2rem;
+  direction: ltr;
+  /* direction: ltr; canh chữ theo trái phải */
+  text-decoration: none;
+  /* nét gạch : where size style color underline 3px wavy red */
+  text-indent: 2rem;
+  /* lùi dòng */
+  /* letter-spacing: 1rem; */
+  /* khoảng cách giữa các từ  */
+  /* word-spacing: 1rem; */
+  /* khaongr cách giữua các từ */
+  /* line-height: 2.4rem; */
+  /* chiều cao giữa các hàng  */
+  text-shadow: 1px 1px 2px #3e3e3e;
+  /* x y độ phủ mờ */
+}
+.demo-text span {
+  vertical-align: middle;
+  /* vertical-align: middle; canhchinhr theo trục dọc  */
+}

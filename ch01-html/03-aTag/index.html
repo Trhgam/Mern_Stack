@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>03-aTag</title>
+    <!-- 
+        absolute link : tuyệt đối ,đường dẫn theo vị trí đứng
+        relative link : tương đối ,đường dẫn theo workspace
+    -->
+    <link rel="stylesheet" href="./style.css">
+    <!-- rel = relation : đổi tùy ý  -->
+</head>
+<body>
+    <!-- ý nghĩa của thẻ a: hyperlink -->
+    <!--  backend tạo ra bộ API(localhost:3000/blabla) API có hình dạng là 1 đường dẫn
+        dùng thẻ a thể truy câp api(route)
+    -->
+
+    <!-- link status (pseudo style ):trạng thái của một đường dẫn
+    -unvisited: chưa truy cập đường dẫn / màu blue
+    -hover : move-in move-out / ko phải là 1 step : sờ vào / màu none
+    -active : khi đè chuột ,không buông ra / màu đỏ
+    -visited: ko phục hồi đc về xanh / màu tím
+
+    mức độ ưu tiên 
+    theo chiều đặt style
+    wedback babel >> react
+
+    -->
+    <a class="demo-btn" href="#">click me!</a>
+    <!-- link gửi mail -->
+    <a href="mailto:honggamdx2@gmail.com">Send</a>
+    <!-- thẻ a thay thế button -->
+    <button>send button</button>
+    <input type="button" value="send input" />
+    <a class="demo-btn1" href="#">send a</a>
+    <!-- 2 loại trên giống nút nhưng ko đưa đến đâu cả nên phải dùng a  
+    mà  a lại ko giống cái nút 
+    nên phải biến a thành cái nút -->
+
+
+</body>
+</html>
+
+
+
+

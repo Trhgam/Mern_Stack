@@ -1,0 +1,229 @@
+/* Resset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  font-size: 62.5%;
+  font-family: "Oswald", sans-serif;
+}
+
+body {
+  font-size: 1.6rem;
+  margin-bottom: 100vh;
+}
+
+/* 
+    Cách 1: Sửa bằng display: inline-block + font-size: 0
+            (-) Khoảng cách giữa các thẻ con
+            (-) Không thể canh giữa theo chiều dọc
+            (-) Phải fix font-size lại cho con -> Không nhất quán
+            (-) Không đánh qua hai bên của thẻ cha
+            (-) Phải chỉnh sửa trong từng thẻ con
+            (+) Dễ sử dụng, không cần nhiều code
+    Cách 2: Sửa bằng float - nặng mụn
+            (-) Không thể canh giữa theo chiều dọc, hoặc xủa lý bất đối xứng theo trục dọc
+            (-) Phải chỉnh sửa trong từng thẻ con
+            (-) Phải dùng clear fix float -> để tạo con giả cho cha ôm lại
+            (+) Dễ sử dụng, không cần nhiều code, giảm thiểu chỉnh font-size
+    Cách 3: Sửa bằng flexbox
+            (+) Dễ sử dụng, không cần nhiều code
+            (+) Có thể canh giữa theo chiều dọc
+            (+) Chỉ cần chỉnh sửa trong thẻ cha
+            (+) Không cần clear fix float
+            (+) Có thể đánh qua hai bên của thẻ cha
+            (-) Cần học thêm về flexbox
+
+    Items - Content : Khác gì nhau
+    - Items: Là nguyên khối trong thẻ cha
+    - Content: Là các phần tử bên trong cha được đánh lần lượt theo trục chính
+    wrap-reverse: lật 1 trục ngược lại so với trục chính
+*/
+.cha {
+  border: 0.3rem solid red;
+}
+
+.con1 {
+  border: 0.3rem solid blue;
+  width: 10rem;
+  height: 20rem;
+}
+
+.con2 {
+  border: 0.3rem solid green;
+  width: 10rem;
+  height: 20rem;
+}
+
+/* Demo postion
+    - Static: Tĩnh không đi đâu cả
+    - Relative: Là xê dịch dựa vào trạng thái ban đầu của nó
+    - Absolute: Là sự xê dịch dựa vào cha khác static của nó
+                - Nó sẽ nhận cha có position khác static
+
+    - flex + margin: 0 auto là những kỹ thuật bề mặt 
+    - fixed 
+    - sticky : dính 
+    - position: là kỹ thuật căn chỉnh nổi bọt
+*/
+
+.cainha {
+  display: flex;
+}
+
+.big_div {
+  border: 0.3rem solid black;
+  width: 30rem;
+  position: relative;
+}
+
+.small_div {
+  border: 0.3rem solid orange;
+  background-color: aqua;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.btn-fixed {
+  position: fixed;
+  bottom: 2rem;
+  right: 1rem;
+}
+
+.demo_sticky {
+  position: sticky;
+  top: 0;
+  right: 0;
+  left: 0;
+  background-color: aquamarine;
+  /* position mới dùng được z-index */
+  z-index: 1;
+}
+.pseudo-e::before {
+  content: "Tôi";
+}
+.pseudo-e::after {
+  content: "bạn";
+}
+.btn-dep {
+  outline: none;
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding: 0.5rem 1rem;
+  margin: 1rem;
+  position: relative;
+  border-top-left-radius: 1.5rem;
+  border-bottom-right-radius: 1.5rem;
+  overflow: hidden;
+  transition: 0.3s ease-in-out;
+}
+.btn-dep::before {
+  content: "";
+  background-color: lightgreen;
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 0;
+  width: 0%;
+  transition: 0.3s ease-in-out;
+  z-index: -1;
+
+  /* border-radius: 1rem 0; */
+}
+.btn-dep:hover {
+  color: white;
+}
+.btn-dep:hover::before {
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  top: auto;
+  height: 100%;
+  right: auto;
+  border-radius: 1rem 0;
+}
+.btn-dep::after {
+  content: "";
+  background-color: red;
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  bottom: 0;
+  transition: 0.3s ease-in-out;
+  z-index: -1;
+  /* border-radius: 0 1rem ; */
+}
+.btn-dep:hover::after {
+  top: 0;
+  bottom: auto;
+  right: 0;
+  left: auto;
+  height: 0%;
+  width: 0%;
+  /* border-radius:0 1rem ; */
+}
+
+/* 1 dấu : là psedo-status unvisited visited*/
+/* 2 dấu : pseudo element before after */
+/*  carousel */
+.container {
+  /* border: 2px solid red; */
+  max-width: 100.4rem;
+  margin: 0 auto;
+}
+.carousel{
+  /* border: 3px solid purple; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.card{
+  border: 1px solid #f3f3f3; 
+  width: 20rem;
+  padding: 0.2rem;
+  margin: 0.04rem;
+}
+.card-img{
+  width: 19.4rem;
+  height: 19.4rem;
+  /* border: 1px solid red; */
+}
+.card-img img{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.card-info{
+  height: 10rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-between;
+}
+.card-detail{
+  width: 100%;
+
+}
+.card-control{
+  width: 100%;
+  display: flex;
+}
+.card-control button{
+  width: 50%;
+  padding: 0.4rem;
+  border: 1px solid coral;
+  background-color: #ff7337;
+  color: white;
+  font-weight: 700;
+}
+.splide__slide{
+  display: flex;
+  justify-content: center;
+}
+/* initalization ==> mounting  
+lifecycle */

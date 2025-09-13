@@ -1,0 +1,138 @@
+<!-- comment: ghi chú  -->
+<!-- HTML : Hypertext mảkup language
+ngôn ngữ đánh dấu siêu văn bản
+đây không phải ngôn ngữ lập trình
+vì nó ko có if, else, for ,do while , biến 
+
+-->
+
+<!-- những gì anh em mình đang code là document : tài liệu 
+document được hiển thị nhưu một trang wed là nhờ wed brower 
+nếu không có trình duyệt wed thì mình sẽ chỉ nhìn tháy html là 1 đống chữu thế này
+
+wed brower chơi với document
+và document html | md | pug | jsx | jsp làm đẹp 
+-->
+<!-- document này cần khai báo cho hệ thống biết nó đang xài cái gì để làm đẹp-->
+
+<!-- Trong html có cấc phần tử gọi là tag| thẻ 
+    Cấu trúc 1 tag nhưu sau 
+    <TagName attribute> content </tagName>
+    <!DOCTYPE html> đang báo với hệ thống ,nó kp là tag ! là importtant -->
+
+<!-- <title>Document</title>
+        DOM: Document Object Model
+        mỗi phần tử khi chạy trên wed đều đc vận hàng bằng js -- wed hiểu đó là node
+
+        head là nơi chứa /khai báo tài nguyên mà trang wed sẽ sử dụng
+        tại sao đặt đầu ,vì phải load lên hết mới dùng đc cho văn bản
+        meta not value nhưng dùng để chứa nội dung ở đây đc để search ra nhanh 
+
+    -->
+<!DOCTYPE html>
+<html lang="en" style="scroll-behavior: smooth;">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>01 - tagName</title>
+  </head>
+  <body>
+    <!-- thể hiện giao diện -->
+    <!-- trong html ngta thường đặt tên | sử dụng tag theo vai trò hiển thị của nó  -->
+    <!-- bộ heading: gồm 6 thẻ h sửa dụng chi mục đích hiển thị chỉ mục hoặc tittle-->
+    <h1>anh Điệp đẹp trai 1</h1>
+    <h2>anh Điệp đẹp trai 2<h2>
+    <h3>anh Điệp đẹp trai 3<h3>
+    <h4>anh Điệp đẹp trai 4<h4>
+    <h5>anh Điệp đẹp trai 5</h5>
+    <h6>anh Điệp đẹp trai 6</h6>
+    <h7>anh Điệp đẹp trai 7</h7>
+    <!-- tất cả các thẻ trong bộ heading đều có display là block / nhìn vào xanh biển
+        đặc trưng của block là cố gắng chiếm trọn 1 hàng ,ko cho ai lên kể cả nó dư khoảng trống
+        
+        display: inline-block là block nhưng có khối ôm trọn content mà thôi
+                ai chui vào được thì chui 
+                ai có vừa width thì lên cùng hàng được
+                ***inline-block là block nên vẫn có các đặc tính của 1 hộp(model-box)
+                ***inline-block không tồn tại trong môi trường tự nhiên 
+        inline???
+                thấy 1 block mà ko phải block thì nó là inline vì inline-block k có ngoài tự nhiên-->
+    <!-- p:paragraph : đoạn văn  
+    có trang đánh giá chuẩn cell -->
+    <p>Tôi tên là &#8194;&#8194;&#8194; Điệp, nhà tôi ở quận 9 <br />
+        3 đời nhà tôi làm gỗ, tới đời tôi làm champion
+    </p>
+    <!-- breakline: xuống hàng 
+        p là block -->
+    <!-- pre: preformatted -->
+    <pre>
+Tôi tên là          Điệp, nhà tôi ở quận 9 <br />
+3 đời nhà tôi làm gỗ, tới đời tôi làm champion
+    </pre>
+    <!-- hầu hết các thẻ mình học đều có khả năng style
+    text-align: căn chỉnh vị trí chữ theo block
+    -->
+    <p style="text-align: center;">hello</p>
+    <p style="text-align: center;">hello</p>
+
+    <!-- tag formatting: bộ tượng hình  -->
+    <p><em>xin chào</em> các bạn, tao <del>tôi</del> là <mark>Điệp đẹp trai</mark> </p>
+    <!-- 
+    i : italic  | em emphasized : nhấn mạnh 
+    vì dùng phải có mục đính 
+    b bold      | strong : in đậm 
+    mọi thẻ tag formatting đều là inline
+    inline là cái bọc ,ko phải hộp nên ko có vành màu cam , ko chỉnh đc width ,height, ko có moder-box
+    trong thực tế nếu nhìn thấy inline thì nên chuyển về inline-block
+
+    -->
+    <!-- sub sup -->
+    <p>H<sub>2</sub>0 : nước</p>
+    <p>ax<sup>2</sup> + bx + c = 0</p>
+    <!-- div span ul li p a -->
+    <!-- pseudo tag : tác giả | thẻ mà ko có chức năng gì
+    span khoảng trống       inline
+    div divide chia tách    block
+    -->
+    <p><span style="font-size: 40px; color: red;">x</span>xin chào bạn</p>
+    <!-- bài tập 1 -->
+    <hr>
+    <p style="color: red;">Lòng ta trống lắm, lòng ta sụp <br>
+    Như túp nhà không bốn vách xiêu;<br>
+    Em chẳng cứu giùm, em bỏ mặc <br>
+    Mưa đưa ta đến bến Đìu hiu.</p>
+
+    <p style="text-align: end;color: blue;">Em ở bên mình; ta ngó say, <br>
+    Song le bên ấy với bên này <br>
+    Cũng xa như những bờ xa cách, <br>
+    Không có thuyền qua, không cánh bay.</p>
+
+    <p style="color: red;">Ta thấy em xinh, khẽ lắc đầu. <br>
+    Bởi vì ta có được em đâu! <br>
+    Tay kia sẽ ấp nhiều tay khác, <br>
+    Môi ấy vì ai sẽ đượm mầu.</p>
+    
+
+    <hr>
+    <!-- bài tập 2 -->
+    <h1 id="danhdau1">Câu 1 cấu trúc html cơ bản</h1>
+    <h2>Lorem ipsum</h2>
+    <h3>1.1 Lorem ipsum dolor sit</h3>
+    <p >Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cupiditate, esse fugit.</p>
+    <h3>1.2 Lorem ipsum dolor sit</h3>
+    <p style="height: 100px;">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cupiditate, esse fugit porro repudiandae hic reprehenderit numquam qui doloremque quisquam odio incidunt libero provident soluta.</p>
+    <h2>Lorem ipsum dolor</h2>
+    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cupiditate, esse fugit. Aliquam amet cum delectus.</p>
+    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cupiditate, esse fugit. Aliquam amet cum delectus, ipsam aliquid porro repudiandae hic reprehenderit numquam qui doloremque quisquam odio incidunt libero provident soluta.</p>
+    <hr><!-- hr horizon đường chân trời -->
+    <!-- a : hyperlink references -->
+    <a href="">click here to knoe everything</a> <br>
+    <a href="">click để qua bài tiếp theo</a> <br>
+    <a href="#danhdau1">click</a>
+    <!-- style="scroll-behavior: smooth;" chuyển smooth  hơn -->
+
+    <a href="https://www.facebook.com/ ">
+      <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fnewocean.edu.vn%2Fdu-hoc-anh%2Ftong-quan-dat-nuoc-anh&psig=AOvVaw0nBwBjgdxkYo8vHGzsXBZZ&ust=1755786723259000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCNCJq7HNmY8DFQAAAAAdAAAAABAE" alt="Ảnh">
+    </a>
+  </body>
+</html>

@@ -1,0 +1,254 @@
+<!-- Chinh thuc -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>03 - Flex_Position</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="
+    https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
+    "
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <p>
+      Hello everyone, mình là Điệp tới từ PiedTeam <br />
+      Hôm nay chúng ta sẽ học về Font trong HTML !
+    </p>
+    <br />
+
+    <p class="demo_sticky">Tao là sticky</p>
+    <!-- <p>FLex dùng để chia và thay thế FLoat</p> -->
+    <br />
+    <div class="cha">
+      <div class="con1"></div>
+      <div class="con2"></div>
+    </div>
+
+    <!-- Demo - flex -->
+    <div class="cainha">
+      <div class="phong_anh_chau">
+        <h1>Anh Cháu phòng kế cô Chắc</h1>
+        <p>
+          Anh cháu thích cô Chắc mà chắc là Chắc không chắc sẽ thích anh Cháu.
+        </p>
+        <p>Anh Cháu có xe đạp riêng, ăn yaourt bỏ phần thừa trên nắp.</p>
+      </div>
+      <div class="phong_co_chac">
+        <h1>Cô Chắc phòng kế anh Cháu</h1>
+        <p>Anh Cháu cái gì cũng tốt, chỉ trừ đôi giày đôn chề.</p>
+        <p>
+          Cô Chắc thích ăn bánh tráng trộn, nhưng không thích trộn bánh tráng.
+        </p>
+      </div>
+    </div>
+
+    <!-- Position -->
+    <div class="big_div">
+      <div class="small_div">Tôi là div nhỏ</div>
+      <p>
+        Tôi có một thông báo rất quan trọng <br />
+        cần được ghi chép chi tiết và lưu trũ <br />
+        cẩn thận, thông tin này phải được cất <br />
+        trong cái div này nội dung là "bạn vừa <br />
+        lảng phí thời gian đọc tôi"
+      </p>
+    </div>
+
+    <button class="btn-fixed">Call me now!</button>
+
+    <!--Psedo Element: phần tử ảo  -->
+    <p class="pseudo-e">Xin chào</p>
+    <!-- button đẹp -->
+    <button class="btn-dep">click me</button>
+    <hr />
+    <!-- carousel card -->
+    <!-- catolouge -->
+    <div class="container">
+      <div class="carousel">
+        <div class="card">
+          <div class="card-img">
+            <img src="./anh-format.png" alt="anh ne" />
+          </div>
+          <div class="card-info">
+            <div class="card-detail">
+              <p>Name: mohican chéo</p>
+              <p>Price: 120.000 VND</p>
+            </div>
+            <div class="card-control">
+              <button>CUT</button>
+              <button>WISHLIST</button>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-img">
+            <img src="./anh-format.png" alt="anh ne" />
+          </div>
+          <div class="card-info">
+            <div class="card-detail">
+              <p>Name: mohican chéo</p>
+              <p>Price: 120.000 VND</p>
+            </div>
+            <div class="card-control">
+              <button>CUT</button>
+              <button>WISHLIST</button>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-img">
+            <img src="./anh-format.png" alt="anh ne" />
+          </div>
+          <div class="card-info">
+            <div class="card-detail">
+              <p>Name: mohican chéo</p>
+              <p>Price: 120.000 VND</p>
+            </div>
+            <div class="card-control">
+              <button>CUT</button>
+              <button>WISHLIST</button>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-img">
+            <img src="./anh-format.png" alt="anh ne" />
+          </div>
+          <div class="card-info">
+            <div class="card-detail">
+              <p>Name: mohican chéo</p>
+              <p>Price: 120.000 VND</p>
+            </div>
+            <div class="card-control">
+              <button>CUT</button>
+              <button>WISHLIST</button>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-img">
+            <img src="./anh-format.png" alt="anh ne" />
+          </div>
+          <div class="card-info">
+            <div class="card-detail">
+              <p>Name: mohican chéo</p>
+              <p>Price: 120.000 VND</p>
+            </div>
+            <div class="card-control">
+              <button>CUT</button>
+              <button>WISHLIST</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- carousel splide -->
+    <section class="splide container aria-label="Splide Basic HTML Example">
+      <div class="splide__track">
+        <ul class="splide__list">
+          <li class="splide__slide">
+            <div class="card">
+              <div class="card-img">
+                <img src="./anh-format.png" alt="anh ne" />
+              </div>
+              <div class="card-info">
+                <div class="card-detail">
+                  <p>Name: mohican chéo</p>
+                  <p>Price: 120.000 VND</p>
+                </div>
+                <div class="card-control">
+                  <button>CUT</button>
+                  <button>WISHLIST</button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="splide__slide">
+            <div class="card">
+              <div class="card-img">
+                <img src="./anh-format.png" alt="anh ne" />
+              </div>
+              <div class="card-info">
+                <div class="card-detail">
+                  <p>Name: mohican chéo</p>
+                  <p>Price: 120.000 VND</p>
+                </div>
+                <div class="card-control">
+                  <button>CUT</button>
+                  <button>WISHLIST</button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="splide__slide">
+            <div class="card">
+              <div class="card-img">
+                <img src="./anh-format.png" alt="anh ne" />
+              </div>
+              <div class="card-info">
+                <div class="card-detail">
+                  <p>Name: mohican chéo</p>
+                  <p>Price: 120.000 VND</p>
+                </div>
+                <div class="card-control">
+                  <button>CUT</button>
+                  <button>WISHLIST</button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="splide__slide">
+            <div class="card">
+              <div class="card-img">
+                <img src="./anh-format.png" alt="anh ne" />
+              </div>
+              <div class="card-info">
+                <div class="card-detail">
+                  <p>Name: mohican chéo</p>
+                  <p>Price: 120.000 VND</p>
+                </div>
+                <div class="card-control">
+                  <button>CUT</button>
+                  <button>WISHLIST</button>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="splide__slide">
+            <div class="card">
+              <div class="card-img">
+                <img src="./anh-format.png" alt="anh ne" />
+              </div>
+              <div class="card-info">
+                <div class="card-detail">
+                  <p>Name: mohican chéo</p>
+                  <p>Price: 120.000 VND</p>
+                </div>
+                <div class="card-control">
+                  <button>CUT</button>
+                  <button>WISHLIST</button>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <!-- carousel splide -->
+    <script src="
+    https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js
+    "></script>
+    <script src="./style.js"></script>
+  </body>
+</html>

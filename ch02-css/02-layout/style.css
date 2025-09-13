@@ -1,0 +1,81 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* medium 16px * 62.5 -> 10px không được fix cứng, tránh fix cứng nên dùng phần trăm
+nếu font-size ở trạng thái medium sẽ là 10px  nên chỉnh lại 16px ở phần body */
+html {
+  font-size: 62.5%;
+}
+/* fix font-size lại về 16px */
+body {
+  font-size: 1.6rem;
+}
+.demo-bg1 {
+  background-color: teal;
+  height: 100vh;
+  /* height: 50%; sẽ ko hiển thị vì body hiện không có chiều cao ,nó chỉ đang ôm các con  ,chiều cao của nó = all phần tử con của nó */
+}
+.demo-bg2 {
+  background-color: lightpink;
+  height: 100vh;
+  background-image: url("./conmeo.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  /* width: 75rem; */
+  height: 50rem;
+  margin: 0 auto;
+  /*  background-attachment: fixed; fix ảnh 1 chỗ khi roll chuột */
+
+  /* 50% so với trục x và 50% so với trục y 
+        background-size: 50% 50%; 
+        cover : sẽ bị cắt mất hình */
+}
+/* trong js mọi chỗ đều nháy đơn nhưng url sẽ là nháy đôi */
+/* width thì chỉnh thằng lớn/ngoài cùng  nhứng hight phải chỉnh thằng nhỏ nhất ,thằng lớn sẽ tự động ôm theo 
+và ko được dùng %  */
+
+/* 
+    viewhight: 
+*/
+.container {
+  /* border: 0.3rem solid red; */
+  width: 102.4rem;
+  margin: 0 auto;
+}
+.banner {
+  /* border: 0.3rem solid blue; */
+}
+.banner_block {
+  border: 0.3rem solid green;
+  height: 25rem;
+  /* width: 25rem;
+    float: left; đã nói cụ thể cho từng div rồi nên ko cần nữa */
+}
+
+.banner_block_left {
+  width: 75rem;
+  float: left;
+}
+.banner_block_right {
+  width: 27.4rem;
+  float: right;
+}
+.banner_img {
+  border: 0.3rem solid palevioletred;
+  height: 50%;
+}
+img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.clearfix::after {
+  display: block;
+  content: "";
+  clear: both;
+}
+/* dư dấu thì overflow: hidden ở cha  */

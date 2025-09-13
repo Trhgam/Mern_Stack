@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bài 2 -useLessTag</title>
+    <style>
+        /* select tag name: dùng tên thẻ */
+        p{
+            color: red;
+        }
+        /* select child Nth 
+        hiệu lực thằng này mạnh nhất ,ko thằng nào đổi màu nó được */
+        p:nth-child(2){
+            color: blue;
+        }
+        /* select class:dùng class */
+        .dacbiet{
+            color: teal !important;
+        }
+        /* id dùng # */
+    </style>
+  </head>
+  <body>
+    <!-- những thẻ vô dụng -->
+    <!-- quotation: trích dẫn -->
+    <p class="dacbiet">
+      lincoln từng nói; <br />
+      <q>em giống như viên đạn, luôn nằm trong đầu anh</q>
+    </p>
+    <!-- q: quote : inline
+        blockquote
+    -->
+    <!-- abbr -->
+    <p class="dacbiet">công chúa thuộc về <abbr title="Lê Điệp">người đẹp trai nhất</abbr></p>
+    <!--  -->
+    <address>115/13 đình phong phú<address>
+    <!-- cite -->
+    <p><cite>Tác phẩm được vẽ bởi</cite> Viemt Vẫn Good</p>
+    <!-- bdo bidirection direction-->
+    <bdo  dir="rtl"> xin chào mọi người</bdo>
+
+
+    <hr>
+    <div style="border: 1px solid green;">
+      <ul style="border: 1px solid red; display: flex; justify-content: end; list-style: none; text-decoration: none;">
+        <li style="border: 1px solid blue;">
+          <a  href="./04-tableAndForm.html">DDD</a>
+        </li>
+        <li>
+          <a href="./04-tableAndForm.html">AAA</a>
+        </li>
+        <li>
+          <a href="./04-tableAndForm.html">BBBB</a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

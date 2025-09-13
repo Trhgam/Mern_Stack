@@ -1,0 +1,49 @@
+a.demo-btn {
+  color: teal;
+  transition: 0.3s;
+}
+a.demo-btn:active {
+  color: hotpink;
+}
+a.demo-btn:hover {
+  color: lightskyblue;
+}
+/* hover ưu tiên nhất vì nó nằm dưới cùng / theo vị trí dòng á */
+/* truyền giá trị css cho các lớp cùng tên đó  */
+/* a thuộc inline nên thay đổi kích thước nó sẽ ko tăng hay giảm */
+.demo-btn1 {
+    display: inline-block;
+    border: 2px solid black;
+    padding: 10px 20px;
+    margin: 10px 0px;
+    text-transform: uppercase;
+    color: black;
+    text-decoration: none;
+    font-family: sans-serif;
+    font-weight: 700;
+    transition: 0.3s ease-in;
+}
+.demo-btn1:hover {
+    border: 2px solid hotpink;
+    background-color: hotpink;
+    color: white;
+}
+/*  model box : cấu trúc hộp
+    content : bao bọc nội dung 
+    padding : tính từ content ra border
+    border : đường viền
+    margin : tính từ border ra ngoài 
+    outline : sát viền border, nó đè lên vật thể khác nên ko được phép dùng
+    padding: 10px 20px; trên dưới 10 ,trái phải 20
+    padding: 10px 20px 30px; trên 10 ,trái phải 20 ,dưới 30px
+    padding: 10px 20px 30px 40px; theo chiều kim đồng hồ  
+
+    chỉ nên xài margin theo chiều dọc thôi
+    mặc định là box-sizing : content-box
+    1 wed nên tối đa 3 font, 6 mã màu, tiêu đề chữ có chân
+
+*/
+/* 
+    line-weight style color 
+    text-decoration vị trí và style
+    font-weight: 400/normalvà 700/bold */

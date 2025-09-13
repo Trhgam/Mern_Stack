@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>04 - tableAndForm</title>
+    <style>
+      table,
+      td {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+
+      table {
+        text-align: center;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 
+        Table: Bảng
+        - Tag table: Tạo bảng
+        - 
+    
+    -->
+    <table>
+      <tr>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td colspan="2">4</td>
+      </tr>
+      <tr>
+        <td colspan="2" rowspan="2">6</td>
+        <td>8</td>
+        <td>9</td>
+        <td rowspan="3">10</td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td>14</td>
+      </tr>
+      <tr>
+        <td>16</td>
+        <td>17</td>
+        <td>18</td>
+        <td>19</td>
+      </tr>
+    </table>
+
+    <!-- FORM  // action="localhost:3000/register"-->
+    <!-- action chứa API  
+        xin người dùng username / password ,user submit ,gửi vào port 
+        label là inline
+        input là block
+        placeholder để nhắc nhập 
+        for(label) + id (input) nhấn chữ đưa xuống form
+        tất cả dữ liệu lên server đều là string
+        name : tạo biến để gửi lên server
+        value : giá trị mặc định
+    -->
+    <hr />
+
+    <form action="/">
+      <div>
+        <label for="username">username</label> <br />
+        <br />
+        <input
+          id="username"
+          type="text"
+          placeholder="Điền tên đăng nhập"
+          name="username"
+          value="ahihi"
+        />
+      </div>
+      <!-- password -->
+      <div>
+        <label for="pwd">password</label> <br />
+        <input type="text" id="pwd" name="password" />
+      </div>
+      <!--  name="password" để nó dấu giá trị  -->
+      <!-- submit -->
+      <a tabindex="1" href="#">quên mật khẩu</a>
+      <div>
+        <input type="submit" value="Đăng nhập" />
+      </div>
+
+      <!-- một vài input cần nhớ -->
+      <input type="email" value="type email" />
+      <!-- giống emali mới được -->
+      <input type="number" />
+      <!-- chữ nhập được số trừ chữ e-->
+      <input type="range" min="0" max="1" step="1" />
+      <!-- chỉnh âm lượng toggle 0 1 1-->
+      <input type="date" />
+      <!-- ngày tháng năm -->
+
+      <!-- gender -->
+      <div>
+        <p>chọn giới tính</p>
+        <div>
+          <input id="nam" value="nam" type="radio" name="gender" />
+          <label for="nam">Nam</label>
+        </div>
+        <div>
+          <input id="nu" value="nu" type="radio" name="gender" />
+          <label for="nu">Nữ</label>
+        </div>
+        <!--  phải có value thì tích chọn mới lưu giá trị 
+                checkbox là multiple choice-->
+      </div>
+
+      <!-- select -->
+      <!-- enum tìm hiểu thêm ==> back sẽ xài 1 2 3 -->
+      <select name="car">
+        <option value="vinfast">VF3</option>
+        <option value="audi">AudiR8</option>
+        <option value="mec">mec E300</option>
+      </select>
+
+      <!-- choose File  -->
+      <input type="file" />
+
+      <!-- text area rất tệ vì nó có khả năng co dãn ==> makr hở sườn-->
+      <textarea style="min-width: 100px; max-width: 100px"></textarea>
+
+      <!-- Dùng Alt sửa nhìu chỗ ,Ctrl D để chọn nhiều value cùng lúc  -->
+      <!-- fieldset -->
+      <fieldset>
+        <legend>hello</legend>
+        <p>tôi rất vô dụng</p>
+      </fieldset>
+    </form>
+  </body>
+</html>
