@@ -1,4 +1,4 @@
-console.log("Bài 2: kiểu dữ llieeju truyền tham trị , truyền tham chiếu");
+console.log("Bài 2: kiểu dữ liệu - truyền tham trị , truyền tham chiếu");
 // I.1 primitive datatype : kiểu dữ liệu nguyên thủy
 //          number  : số
 //          string  : chuỗi
@@ -11,19 +11,22 @@ console.log("Bài 2: kiểu dữ llieeju truyền tham trị , truyền tham chi
 //          null và undefined khác nhau như thế nào?
 //----------------------------------------------------
 // prototype chain Js quy định vạn vật đều là null
-console.log(typeof null);
+console.log(typeof null); //object
+
 // tại sao null ko là object ?
 // phân định dữ liệu theo học thuyết nên null khi typeof sẽ in ra object
-// vì null ở đầu phả hệ và là cha của object nên theo quy tắc bất hiếu nó chỉ được nhỏ hơn và bằng , chỉ nhỏ hơn
+// vì null ở đầu phả hệ và là cha của object nên theo quy tắc bất hiếu nó chỉ được nhỏ hơn và bằng,
+// hay chỉ được nhỏ hơn
 // tại sao null ko nằm trong object datatype:
 // ==> vì null là gốc ( nguyên thủy - primitive ) k thể tách nhỏ xuống nữa
 
 console.log(typeof undefined); //undefined
 
-console.log(null == undefined); // true rỗng và rỗng
-console.log(null === undefined); // false
+console.log(null == undefined); // true rỗng và rỗng [ về giá trị thì rỗng giống nhau ]
+console.log(null === undefined); // false | so sanh về kiểu dữ liệu thì khác nahu hoàn toàn
+
 //==: là so sánh giá trị
-//===: là so sánh giá trij và kiểu dữ liệu
+//===: là so sánh giá tri và kiểu dữ liệu
 
 console.log(2 == "2"); // true
 console.log(2 === "2"); // false
@@ -32,17 +35,34 @@ console.log(2 === "2"); // false
 let khoa = { name: "Ngô Khoa", height: 180 };
 console.log(khoa.NguoiYeu); //undefined
 
-//có 6 loại hàm
-//undefined trong function
+//====================================================================================
+//                          CÓ 6 LOẠI HÀM
+//   Hàm thông thường (Function Declarations)
+//   Hàm biểu thức (Function Expressions)
+//   Hàm mũi tên (Arrow Functions)
+//   Hàm ẩn danh (Anonymous Functions)
+//   Hàm tự gọi (Immediately Invoked Function Expressions - IIFE)
+//   Hàm khởi tạo (Constructor Functions)
+
+//   I.UNDEFINED TRONG FUNCTION
 
 function handle1(a, b) {
   return b;
 }
 let c = handle1(2);
-console.log(c); //undefined
-// có thể thiếu tham số truyền vào
+console.log(c); // undefined
+//Theo quy tắc của JavaScript, khi một tham số của hàm không được truyền giá trị,
+//nó sẽ tự động được gán giá trị mặc định là undefined
 
-// function mà không có lệnh return là nó return undefined [void cũng undefined]
+function handleHehe(a, b) {
+  return a;
+}
+let hehe = handleHehe(2);
+console.log(c); // in ra 2
+
+// hàm có thể thiếu tham số truyền vào nha !!!!
+
+// function mà không có lệnh return là nó return undefined [ void cũng undefined ]
 
 let str = ""; // chuỗi rỗng
 str = null; // object rỗng => primitive datatype
@@ -52,23 +72,27 @@ str = null; // object rỗng => primitive datatype
 // console.log(object1.ahihi);
 // // ko đọc được thuộc tính vì ko có thuộc tính để chấm ,cả undefined cũn v
 
-//II. Object datatype : kiểu dữ liệu dạng object
+//===============================================================================================
+//            II.OBJECT DATATYPE : KIỂU DỮ LIỆU DẠNG OBJECT
+
 //  không phải là primitive thì đều là object
 //  Plain object : Object siêu phẳng
 
 // Array : là cách khai báo nhiều biến , cùng lúc , [ không cùng kiểu dữ liệu , ko liền kề ]
 // đều là mảng xịn ,lưu ở heap
+
 var hoa = ["cúc", "lan", "Trà", 10];
-//hoa: (string | number)[] mô tả
+//  hoa: (string | number)[] mô tả
 
-//Array là 1 object
+//  Array là 1 object
 
-//Regular Expression : Regex là object
+//  Regular Expression : Regex là object
 
-//Function là object
+//  Function là object
+
 console.log(typeof handle1); //Function mà function là object nên object
 
-console.log(10 / "d"); //NaN [not of Number | NAN là giá trị của number còn number là kiểu dữ liệu ]
+console.log(  10 / "d"); //NaN [not of Number | NAN là giá trị của number còn number là kiểu dữ liệu ]
 console.log(typeof NaN); //Number
 
 // Wrapper class
@@ -122,7 +146,8 @@ console.log(value); //false
 value = Boolean(undefined);
 console.log(value); //false
 
-//Falsy: null, undefined , 0 , -0 , "" ,false, NaN
+//Falsy: null, undefined , 0 , -0 , "" , false, NaN
+
 //Truthy: ngược lại Falsy
 //          chuỗi khác rỗng , số khác 0, object đều là true
 

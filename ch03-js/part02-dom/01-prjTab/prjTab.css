@@ -1,0 +1,16 @@
+.tab-content-item{
+    width: 300px;
+    display: none;
+}
+.tab-content-item img{
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.tab-content-item.actived{
+    display: block;
+}
+.navtab-btn.actived{
+    background-color: aqua;
+}

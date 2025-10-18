@@ -7,7 +7,7 @@ console.log("Bài 06 - Hàm(cơ bản) - các method xử lý number");
 // thấy function là Function declaration vì nó như đang khai báo method cho window nên đặt đâu cũng dùng được
 handle1();
 function handle1() {
-  console.log("Tui là hàm làm bằng funtion declaration");
+  console.log("Tui là hàm làm bằng Funtion declaration");
 }
 handle1();
 
@@ -38,7 +38,7 @@ handle2();
 
 //nên có ;
 
-//callback : gọi lại |hàm nhận 1 hàm làm đối số
+//callback : gọi lại | hàm nhận 1 hàm làm đối số
 
 //function1(function2)
 //function1 là callback
@@ -64,10 +64,11 @@ function handle3() {
 //     console.log("Ahyhy 4");
 // },3000 );
 
+//================================================================================
 //Phân biệt 'this' trong các loại hàm
 //fd
 function handle4() {
-  console.log(this); //this là undefined vì build chứu chưa chạy
+  console.log(this); //this là undefined vì mới build  hàm chứ chưa chạy hàm
 }
 
 //fe
@@ -80,11 +81,13 @@ let handle6 = () => {
   console.log(this); //this là undefined
 };
 
-//chạy này ko có người gọi  //normal (châm trước) | use strict ko gọi là ko ai gọi luôn
+//chạy này ko có người gọi  //normal (châm trước)  | use strict ko gọi là ko ai gọi luôn
 handle4(); //fd              window object         | undefine
 handle5(); //fe              window object         | undefine
 handle6(); //fa              window object         | window object
 //vì ko có người gọi nên nó quy ước window
+// fa usestrict sẽ cho con chạy tùm lum nên là window, 
+// còn fe và fd thì giữ con cho đến hết ,dù ko ai đón nên đc gán giá trị là undefined
 
 let person1 = {
   fullname: "Điệp đẹp trai",
@@ -113,11 +116,11 @@ person1.getNameByFa(); //this person1.fullname = undefine
 function handle7(a, b = 10) {
   console.log(a + b);
 }
-// b = 10 dèault parameter
+// b = 10 default parameter
 handle7(2); //12
 handle7(2, 5); //12
 
-// tham số đợi | tham số nghỉ | tham số còn lại | resr parameter
+// tham số đợi | tham số nghỉ | tham số còn lại | rest parameter
 function handle8(a, b, ...c) {
   console.log(a);
   console.log(b);
@@ -158,18 +161,19 @@ x = Number((0.2 + 0.1).toFixed(1)); //toFix trả về chuỗi nên ép kiểu
 console.log(x);
 
 // cộng ưu tiên chuỗi | trừ ưu tiên số
-console.log(2 + 2); //4
+console.log(2 + 2); //  4
 console.log(2 + "2"); // '22'
 console.log("2" + 2); // '22'
 console.log(2 - "2"); // 0
-console.log(2 - "d"); //NaN
-console.log(2 - "d"); //2d
-console.log(2 / "d"); //NaN
-console.log(2 / 0); //infinity
-console.log(-2 / 0); //-infinity
+console.log(2 - "d"); //  NaN
+console.log(2 - "d"); //  2d
+console.log(2 / "d"); //  NaN
+console.log(2 / 0); //  infinity
+console.log(-2 / 0); // -infinity
 x = 0o7; //octal
 x = 0x7; //hexa
-// JS : this đại diện cho ng gọi nó ,ko ai gọi thì this là undefined
+
+// JS : this đại diện cho ng gọi nó, ko ai gọi thì this là undefined
 // fd và fe sẽ giam this(điều đó là tốt ) cho tới khi xác định được người gọi
 // ví dụ gửi con vô nhà trẻ ,bảo mẫu giam con và cho tới khi cha mẹ tới
 // ... FA là thả this ra ngoài tìm cha ,nếu ko tìm đc là undefine
