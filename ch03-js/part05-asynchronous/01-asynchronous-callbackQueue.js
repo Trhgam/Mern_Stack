@@ -50,7 +50,7 @@ function c(z) {
 
 c(5);
 
-//tônngr quan về vùng nhớ trong js
+//tổng quan về vùng nhớ trong js
 /*
 js(call stack , memory heap)
 wedAPIs(DOM, AJAX(XmlHttpRequest, Timeout))
