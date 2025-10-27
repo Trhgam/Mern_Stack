@@ -320,3 +320,96 @@ console.log(boDemB()); // 1 (Khởi tạo lại)
 ```
 
 ---
+
+## Ôn tập về phương thức map , filter , reduce của mảng
+
+### I. hàm map()
+
+
+Hàm map() dùng để biến đổi (transform) từng phần tử của một mảng theo một quy tắc nhất định và __trả về một mảng mới__ có cùng số lượng phần tử với mảng gốc.
+
+Tất nhiên mảng gốc ko bị thay đổi.
+
+```javascript
+const sanPham = [
+  { ten: "Laptop", gia: 1200 },
+  { ten: "Điện thoại", gia: 800 },
+  { ten: "Tai nghe", gia: 150 }
+];
+
+// Dùng map để lấy ra chỉ TÊN của các sản phẩm
+const tenSanPham = sanPham.map(function(item) {
+  return item.ten;
+});
+
+console.log(tenSanPham); 
+// Kết quả: ["Laptop", "Điện thoại", "Tai nghe"]
+```
+
+map() dùng lấy ra 1 thuộc tính gì đó của list đối tượng. 
+
+### II. hàm filter()
+
+filter() dùng để lọc (select) các phần tử trong một mảng dựa trên một điều kiện kiểm tra. 
+
+Nó __trả về một mảng mới__ chỉ chứa các phần tử thỏa mãn điều kiện, số lượng phần tử có thể ít hơn mảng gốc.
+
+filter() không thay đổi mảng gốc.
+
+```javascript
+const nguoiDung = [
+  { ten: "An", trangThai: "offline" },
+  { ten: "Bình", trangThai: "online" },
+  { ten: "Chi", trangThai: "online" }
+];
+
+// Dùng filter để chọn lọc người dùng đang "online"
+const dangHoatDong = nguoiDung.filter(function(user) {
+  return user.trangThai === "online";
+});
+
+console.log(dangHoatDong); 
+/* Kết quả: 
+[
+  { ten: "Bình", trangThai: "online" },
+  { ten: "Chi", trangThai: "online" }
+]
+*/
+```
+
+filter() dùng để lấy ra 1 đối tượng có 1 hay nhiều thuộc tính nào đó thỏa điều kiện truyền vô.
+
+---
+### III hàm reduce()
+
+Hàm reduce() dùng để tổng hợp (aggregate) mảng. Nó thực thi một hàm callback trên mỗi phần tử của mảng để tích lũy (hoặc giảm thiểu) mảng thành __một giá trị duy nhất và trả ra__.
+
+reduce nhận hai tham số chính: __hàm callback__ và __giá trị khởi tạo (initial value).__
+
+```javascript
+const diemSo = [8, 9, 7, 10];
+
+// Dùng reduce để tính tổng điểm số
+const tongDiem = diemSo.reduce(function(tongTichLuy, diemHienTai) {
+  return tongTichLuy + diemHienTai;
+}, 0); // 0 là giá trị khởi tạo (accumulator bắt đầu từ 0)
+
+console.log(tongDiem); // Kết quả: 34
+```
+
+```javascript
+const danhSachMau = ['Red', 'Blue', 'Red', 'Green', 'Blue', 'Red'];
+
+// Dùng reduce để đếm tần suất xuất hiện của mỗi màu
+const tanSuatMau = danhSachMau.reduce(function(dem, mau) {
+  dem[mau] = (dem[mau] || 0) + 1;
+  return dem;
+}, {}); // {} là giá trị khởi tạo (accumulator là một đối tượng trống)
+
+console.log(tanSuatMau); 
+// Kết quả: { Red: 3, Blue: 2, Green: 1 }
+```
+reduce thường dùng thể tổng hợp , thống kê các thuộc tính của đối tượng
+ trong 1 mảng nên buộc nó phải nhận vào 1 callback để xử lý theo logic đó 
+
+ ---
