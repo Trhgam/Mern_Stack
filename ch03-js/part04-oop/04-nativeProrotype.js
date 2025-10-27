@@ -1,6 +1,6 @@
 
-// Thuoojc tinhs prototype suwr dujnng roojng raix trong js
-//mọi contructor function có sẵn trong js đều dung prototype
+// Thuộc  tính prototype sử dụng rộng rãi trong js
+//mọi contructor function có sẵn trong js đều dùng prototype
 
 //Tổng kết cái khái niệm nhưu sau
 //[[Prototype]] là thuộc tính ẩn trong object (function).
