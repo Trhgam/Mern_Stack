@@ -5,7 +5,7 @@ Mảng ở js vô cùng đặc  biệt vì  nó không nhất thiết cùng ki�
 ```javascript
 let arr1 = [1, 2, "a", { lname: "Huệ", age: 10 }, [3, 5]];
 ```
-Không nhưungx thế trong 1 mảng đó có thể có nhiều mảng khác
+Không nhưng thế trong 1 mảng đó có thể có nhiều mảng khác
 
 ```javascript
 // truy cập vvoo phần tử thứ 4 lấy element đầu tiên
@@ -15,7 +15,7 @@ console.log(arr1[4][0]); //3
 # Các phương thức , property
 ## I. JavaScript Array Methods
 
-### 1.length property
+### 1.length is property
 
 property returns the length (size) of an array:
 

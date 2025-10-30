@@ -103,7 +103,7 @@ c(5); // 8
 
 - wedAPIs(DOM, AJAX(XmlHttpRequest, Timeout))
     - AJAX(XmlHttpRequest) : giao tiếp với server khác lấy thông tin, lấy dữ liệu
-    timeout (settimeout setinterval)
+    -AJAX(timeout (settimeout setinterval))
     
 
 - event loop (addEventListener) + callback Queue(onClick | onLoad | onDone) (window sẽ gọi)
