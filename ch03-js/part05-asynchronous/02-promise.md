@@ -31,7 +31,7 @@ Promise nhận vào 1 callback function , trong callback function sẽ gọi đ�
 
 ---
 ## Mô tả một lời hứa dưới dạng code
-__Lời hứa__ : Anh người yêu hứa với cô gái rằng "cuối tháng này anh sẽ mang 5000 về cho em , nếu không thì em cứ gọi anh là "jack con" nhưng nếu được anh mong 1 nụ hôn.
+__Lời hứa__ : Anh người yêu hứa với cô gái rằng "cuối tháng này anh sẽ mang 5000 về cho em , nếu không thì em cứ gọi anh là "jack con" nhưng nếu được anh mong 1 món quà.
 
 
 ```javascript
@@ -41,7 +41,7 @@ let wallet = prompt("Nhập tiền vào ví: "); //sếp
 
 //anh người yêu hứa - lời hứa được khởi tạo 
 let p1 = new Promise((resolve, reject) => {
-    if(wallet >= 5000) resolve("1 nụ hôn");
+    if(wallet >= 5000) resolve("1 món quà");
     else reject("jack con");
 });
 
@@ -51,9 +51,9 @@ let p1 = new Promise((resolve, reject) => {
 // bản chất kiểm chứng là đi xử lý then và catch
 
 p1.then((value) => {
-    console.log("em cho anh " + value);
+    console.log("tui cho bạn " + value);
 }).catch((error)=>{
-    console.log("Mày chỉ là thằng "+ error);
+    console.log("You are "+ error);
 });
 
 ```

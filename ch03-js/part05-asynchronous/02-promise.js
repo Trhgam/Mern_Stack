@@ -46,7 +46,7 @@ cho em , nếu không thì em cứ gọi anh là "jack con" nhưng nếu đượ
 //=====================================================
 // mô phỏng server hoạt động: hiểu đc vai trò của promise
 // fe và be giao tiếp với nhau = lời hứa
-//frontend: yêu cầu backend cung cấp duwx liệu (fetchAPI ,AXios)
+//frontend: yêu cầu backend cung cấp dữ liệu (fetchAPI ,AXios)
 //backend: tiếp nhận yêu cầu, tui sẽ xử lý cho anh ngay
 
 // let p2 = new Promise((resolve, reject) => {
