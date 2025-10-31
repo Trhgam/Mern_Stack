@@ -1,11 +1,11 @@
 // 03-async-await
-//ngày xưa người ta dùng callback để xử lý bất đồng bộ để nó ko đợi nhau
-//ES6 : promise
-//ES7 : async + await dùng để kết hợp với promise chứ ko thay thế cho promise 
-//---------------------------------------------------------
-//promise sẽ làm xử lý bất đồng bộ 
+// ngày xưa người ta dùng callback để xử lý bất đồng bộ để nó ko đợi nhau
+// ES6 : promise
+// ES7 : async + await dùng để kết hợp với promise chứ ko thay thế cho promise 
+// ---------------------------------------------------------
+// promise sẽ làm xử lý bất đồng bộ 
 //               xử lý lỗi
-//async chỉ xử lý bất đồng bộ
+// async chỉ xử lý bất đồng bộ
 //           ko thể tự xử lý lỗi mà phải dùng try catch
 //---------------------------------------------------------
 
@@ -76,7 +76,7 @@ async function handle() {
 // getData();
 
 
-// Không nên sùng toán tử đồng bộ với async += 
+// Không nên dùng toán tử đồng bộ với async += 
 let x = 0;
 let handle4 = () =>
     new Promise((resolve, reject) => {

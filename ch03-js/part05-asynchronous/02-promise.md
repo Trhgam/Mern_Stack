@@ -2,7 +2,9 @@
 
 Promise: Lời hứa diễn ra trong tương lai
 
-1 lời hứa sẽ có 3 trạng thái : khởi tạo , pending và completed. 
+1 lời hứa sẽ có 3 trạng thái :  pending , onfulfilled, on rejected.
+
+Khi một Promise đã chuyển sang trạng thái $\text{Fulfilled}$ hoặc $\text{Rejected}$, nó được gọi là $\text{Settled}$ (Đã giải quyết) và trạng thái đó sẽ không bao giờ thay đổi nữa.
 
 -Lời hứa đáng tin : lần tới anh khảo bài em sẽ học hành đầy đủ , nếu không học thì em nghỉ luôn, nếu có học bài mong anh xóa sẹo cho em.
 
@@ -61,7 +63,7 @@ p1.then((value) => {
 - __then( tương đương với resolve )__, value là những gì có trong resolve
 - __catch( tương đương với reject )__, error là những gì có trong reject
 ---
-## Mô phỏng server hoạt động: hiểu rõ vai tò của promise
+## Mô phỏng server hoạt động: hiểu rõ vai trò của promise
 ---
 Trước khi vô phần này cần tìm hiểu về khái niệm kiện hàng response.
 
@@ -209,7 +211,7 @@ p4.then((value)=>{
 ```
 Lúc này nó sẽ đi tới luồng mới ở then hay catch ???
 
-=> Khi nó thực thi , nó gặp lệnh resolve đầu tiên nên nó đã vô then rồi và khi nó vô then nó lập tưc gán trạng thái promoise là __onfulfilled__ , đồng nghĩa nó sẽ phớt lờ reject đi vì nó có trạng thái rồi.
+=> Khi nó thực thi , nó gặp lệnh resolve đầu tiên nên nó đã vô then rồi và khi nó vô then nó lập tức gán trạng thái promise là __onfulfilled__ , đồng nghĩa nó sẽ phớt lờ reject đi vì nó có trạng thái rồi.
 
 ---
 ### Return và throw trong then và catch:
@@ -229,6 +231,8 @@ p4.then((value)=>{
     console.log( "Lỗi nè : " + error);
 });
 ``` 
+---
+
 
 ---
 ### ví dụ về then return, throw
@@ -253,8 +257,9 @@ p4.then((value)=>{
     .catch();
 
 ```
-
+---
 __Quan trọng__: 
+
 - __return trong then | catch__ sẽ đưa Promise về on filfulled
 
 - __throw trong then | catch__ sẽ đưa Promise về on rejected
@@ -266,7 +271,7 @@ __Quan trọng__:
 - backend : tiếp nhận yêu cầu , tạo lời hứa.
 ---
 ```javascript
-//khởi tạo lừi hứa
+//khởi tạo lời hứa
 let getProfile = () =>
     new Promise((resolve, reject) => {
         setTimeout(() => {
@@ -323,3 +328,9 @@ getProfile()
     });
 
 ```
+
+
+---
+Mô tả đường đi của code khi then catch mà dùng return và throw
+
+![Đường đi của promise hell](image.png)

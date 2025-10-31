@@ -11,7 +11,7 @@
 //                 resolve là điều mình mong muốn chứ ko chắc chắn là điều anh làm 
 // on rejected : đã có kết quả (thất bại) - reject("nghỉ học")
 
-// ko có promise nào vừa ful\lfilled vừa rejected đc nha
+// ko có promise nào vừa fullfilled vừa rejected đc nha
 
 //cú pháp Promise : ko nhận vào resolve, reject mà nhận vào 1 callback nha
 new Promise(function (resolve, reject){});
