@@ -4,7 +4,7 @@ Promise: Lời hứa diễn ra trong tương lai
 
 1 lời hứa sẽ có 3 trạng thái :  pending , onfulfilled, on rejected.
 
-Khi một Promise đã chuyển sang trạng thái $\text{Fulfilled}$ hoặc $\text{Rejected}$, nó được gọi là $\text{Settled}$ (Đã giải quyết) và trạng thái đó sẽ không bao giờ thay đổi nữa.
+Khi một Promise đã chuyển sang trạng thái Fulfilled hoặc Rejected, nó được gọi là Settled (Đã giải quyết) và trạng thái đó sẽ không bao giờ thay đổi nữa.
 
 -Lời hứa đáng tin : lần tới anh khảo bài em sẽ học hành đầy đủ , nếu không học thì em nghỉ luôn, nếu có học bài mong anh xóa sẹo cho em.
 
@@ -106,8 +106,8 @@ let p2 = new Promise((resolve, reject) => {
 });
 
 
-// frontend : kiểm chứng lười hứa 
-// hay frontend xử lý then catch
+// frontend : kiểm chứng lời hứa 
+// hay frontend xử lý then catch 
 
 p2.then((response)=>{
     if (response.status >= 200 && response.status < 300) {

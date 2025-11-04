@@ -130,7 +130,7 @@ Tính chất quan trọng :
  __Không nên dùng toán tử đồng bộ với async (+= + - * / ) __
 
 ```javascript
-let x = 0;
+let x = 0 ;
 let handle4 = () =>
     new Promise((resolve, reject) => {
         x++; //1

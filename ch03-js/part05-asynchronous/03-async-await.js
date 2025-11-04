@@ -7,7 +7,7 @@
 //               xử lý lỗi
 // async chỉ xử lý bất đồng bộ
 //           ko thể tự xử lý lỗi mà phải dùng try catch
-//---------------------------------------------------------
+//----------------------------------------------------------
 
 //Async function : là 1 hàm luôn return về promise ! quan trọng
 function handle() {
