@@ -223,7 +223,7 @@ let user1 = { ten: "An" };
 let user2 = { tuoi: 30 };
 // user1.concat(user2) // ❌ LỖI: Không dùng được cho Object
 ```
-nhưng có thể dùng spread operator: để gợpnos vô 1 mảng 
+nhưng có thể dùng spread operator: để gộp nó vô 1 mảng 
 ```javascript
 let userMoi = { ...user1, ...user2 }; 
 console.log(userMoi); // Output: { ten: 'An', tuoi: 30 }

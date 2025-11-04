@@ -137,7 +137,7 @@ axios.get('https://jsonplaceholder.typicode.com/posts/1')
 
 ---
 
-__Cách 2 Dùng fetchAPI__
+__Cách 2 Dùng fetchAPI với Promise__
 
 Với Fetch, bạn cần tự kiểm tra response.ok và tự gọi .json() để parse dữ liệu.
 ```javascript
@@ -164,4 +164,32 @@ fetch('https://jsonplaceholder.typicode.com/posts/1')
     // Promise bị rejected nếu có lỗi mạng HOẶC lỗi HTTP status mà chúng ta tự throw ở trên
     console.error("Fetch: Lỗi xảy ra:", error.message);
   });
+```
+
+---
+
+### FETCH API (async/await)
+```javascript
+async function fetchPostWithAsyncAwait() { 
+  
+  try { // 2. Sử dụng try...catch để xử lý lỗi (thay cho .catch())
+    const response = await fetch('https://jsonplaceholder.typicode.com/posts/1'); // 3. Dùng 'await' để đợi Promise từ fetch()
+
+    // 4. Vẫn cần kiểm tra response.ok như Fetch API thông thường
+    if (!response.ok) {
+      // Nếu có lỗi HTTP status, throw Error để nó được bắt bởi khối catch
+      throw new Error(`Fetch: HTTP error! Status: ${response.status}`);
+    }
+
+    // 5. Vẫn cần gọi .json() và dùng 'await' để đợi Promise từ response.json()
+    const data = await response.json(); // Dùng 'await' để đợi Promise từ .json()
+
+    // Khi cả hai await đều hoàn thành, 'data' đã là JS Object/Array
+    console.log("Fetch: Dữ liệu nhận được (async/await, đã parse bằng .json()):");
+    console.log(data);
+
+  } catch (error) { // 6. Khối catch sẽ bắt lỗi từ throw Error hoặc lỗi mạng
+    console.error("Fetch: Lỗi xảy ra (Async/Await):", error.message);
+  }
+}
 ```

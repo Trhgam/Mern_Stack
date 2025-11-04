@@ -10,7 +10,7 @@ class Http{
             body: body ? JSON.stringify(body) : null,
         }).then((response) => {
             if(response.ok){
-                return response.json()
+                return response.json() //promise
             }else{
                 throw new Error(response.status);
             }
