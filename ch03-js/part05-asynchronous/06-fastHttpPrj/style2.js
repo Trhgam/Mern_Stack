@@ -1,6 +1,4 @@
 // cách 2 : fetch           await await class 
-// cách 1 : fetch               promise class 
-// cách 2 : fetch           await await class 
 // cách 3 : XMLHttpRequest callback prototype
 
 class Http{

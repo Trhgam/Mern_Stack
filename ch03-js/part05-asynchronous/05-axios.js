@@ -1,9 +1,9 @@
 // axious http client hỗ trợ gửi | nhận request
 // cho browser và server-side(node js)
 
-//đc build bằng http , sơ khai hơn xml nên nó chạy đc cả 2 nền tảng
+// đc build/ sử dụng bằng http ,mà http sơ khai hơn xml nên nó chạy đc cả 2 nền tảng client-sided và server-sided
 
-//tự mở kiện hàng mà ko cần dùng .json
+// tự mở kiện hàng mà ko cần dùng .json
 // axios({
 //     url: "https://69057f57ee3d0d14c132c712.mockapi.io/users",
 //     method: "get",
