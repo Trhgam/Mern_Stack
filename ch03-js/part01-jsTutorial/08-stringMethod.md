@@ -30,7 +30,7 @@ let text = `He's often called "Johnny"`;
 
 ## Chiều dài chuỗi
 
-Để tìm độ dài của một chuỗi, hãy sử dụng thuộc lengthtính tích hợp:
+Để tìm độ dài của một chuỗi, hãy sử dụng thuộc length tính tích hợp:
 
 ```javascript
 let text = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";

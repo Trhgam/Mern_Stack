@@ -320,3 +320,53 @@ console.log(a);
 // đểu có thể chuyển từ ISO này về dạng bth được
 console.log(a.toISOString()); //2022-08-17T14:10:32.100Z // chuẩn lưu trữu trên database
 // ISO8601 TIÊU CHUẨN LƯU TRỮ THỜI GIAN
+
+
+///===================================
+
+//call(thisArg, arg1, arg2, ...)
+// Phương thức call() dùng để gọi hàm ngay lập tức, với một ngữ cảnh this cụ thể 
+// và nhận các đối số truyền vào dưới dạng danh sách riêng lẻ.
+// const person = { name: "Alice" };
+
+// function greet(city, country) {
+//   console.log(`Hello, my name is ${this.name} from ${city}, ${country}.`);
+// }
+
+// // Gọi hàm, đặt 'this' là 'person' và truyền đối số riêng lẻ
+// greet.call(person, "Hanoi", "Vietnam"); 
+// // Output: Hello, my name is Alice from Hanoi, Vietnam.
+
+
+
+//apply(thisArg, [argsArray])
+// Phương thức apply() cũng dùng để gọi hàm ngay lập tức và thiết lập ngữ cảnh this, 
+// nhưng nó nhận các đối số truyền vào dưới dạng một mảng.
+// const person = { name: "Bob" };
+
+// function greet(city, country) {
+//   console.log(`Hello, my name is ${this.name} from ${city}, ${country}.`);
+// }
+
+// // Gọi hàm, đặt 'this' là 'person' và truyền đối số dưới dạng mảng
+// const args = ["Tokyo", "Japan"];
+// greet.apply(person, args); 
+// // Output: Hello, my name is Bob from Tokyo, Japan.
+
+
+// bind(thisArg, arg1, arg2, ...)
+// Phương thức bind() khác với call và apply ở chỗ nó không gọi hàm ngay lập tức. Thay vào đó, nó tạo ra một phiên bản mới củ
+// hàm gốc với ngữ cảnh this đã được gắn (bound) vĩnh viễn.
+// const user = { 
+//     name: "Charlie",
+//     sayName: function() {
+//         console.log(`My name is ${this.name}`);
+//     }
+// };
+
+// // 1. Tạo hàm mới, cố định 'this' là 'user'
+// const boundSayName = user.sayName.bind(user); 
+
+// // 2. Gọi hàm mới sau đó (không bị mất ngữ cảnh 'this')
+// boundSayName(); 
+// // Output: My name is Charlie

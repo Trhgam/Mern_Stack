@@ -460,6 +460,16 @@ arr1 = arr1.sort((a, b) => {
     filter dùng để lọc các item
     thì reduce dồn các item thành 1 value , hay objetc mới.
 
+---
+Hàm callback mà bạn truyền vào reduce() luôn có tối đa 4 tham số, và vị trí của chúng là cố định:
+    arr.reduce((accumulator, currentValue, index, array) => {
+    // ... logic xử lý
+    }, initialValue);
+
+
+---
+![alt text](image.png)
+
 ```javascript
 arr1 = [1, 3, 20, 100];
 let sum = arr1.reduce((total, currentItem) => {
@@ -515,7 +525,7 @@ console.log(person1);
 console.log(person1 == person3);//true
 ```
 ---
-Shallow copy là gì ? Copy nông , ko làm việc trên bộ nhứo của object bị copy
+Shallow copy là gì ? Copy nông , ko làm việc trên bộ nhớ của object bị copy
 
 Shadow Copy là việc tạo ra một bản sao mới của đối tượng gốc
 

@@ -6,7 +6,7 @@
         - syntaxError: lỗi do sai cú pháp | do người code
         - logicError: lỗi sai về mặt tư duy lỗi không bắt được khá sửa nhất 
 
-    2. Trong tryCatch: dùng ddeeer xử lý dạng lỗi runtimeError
+    2. Trong tryCatch: dùng để xử lý dạng lỗi runtimeError
         trycatch chỉ hoạt động trong môi trường đồng bộ mà thôi 
     
     3. Cấu tạo của Error
@@ -32,6 +32,7 @@
       - Mình có thể tự điều hướng về catch thông qua lệnh throw
       1. Flow 1: Dùng obmit stack
           - Error : Error
+          
           - name  : name
           - message: => message
           - stack : mất

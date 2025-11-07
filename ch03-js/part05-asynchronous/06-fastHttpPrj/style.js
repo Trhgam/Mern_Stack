@@ -52,7 +52,7 @@ http.post(`${BASE_URL}/users`, { name: "Tú", yob: 2005 })
         console.log("Lỗi nè " +error);
     });
 
-    http.put(`${BASE_URL}/users/3`, { name: "Tú Tú", yob: 2005 }) //truyên id
+http.put(`${BASE_URL}/users/3`, { name: "Tú Tú", yob: 2005 }) //truyên id
     .then((data) => {
         console.log("Hiển thị");
         console.log(data);
