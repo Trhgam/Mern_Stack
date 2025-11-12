@@ -12,3 +12,5 @@ Từ staging lên coimmited chỉ đi ko có về nhưng ở giao diện thì đ
 
 Khi nó về nó nằm ở vùng workspace nha
 
+đem này bỏ vô[ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMdGlSm7HhM1lGBCEK0OVoPBaEpPS1+Vz844Mwdo4Vxe honggamdx@gmail.com ] bki account gitHub nào thì cái github đó sẽ bt rằng mk đang xài máy nào 
+nó sẽ cung cấp thong tin account của chủ đoạn link cho máy đó
