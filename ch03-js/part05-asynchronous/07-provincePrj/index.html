@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Province API Project</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+</head>
+<body>
+<!-- nắm chắc được nó thì thao tác vs API tốt -->
+
+    <!-- code here -->
+    <div class="container">
+        <!-- form bình thường sẽ có action và method nhưng
+            ở đây ko cần vì mk dùng Js (có fetch) đã tự xử lý method bên trong rồi-->
+        <!-- form chỉ để đẹp thôi -->
+        <form class="mb-3" id="form">
+            <div class="mb-3 row">
+                <!-- thành phố -->
+                <div class="col4">
+                    <label for="province" class="form-label">Thành phố</label>
+                    <select class="form-select" id="province">
+                        <option value="1">TP Hà Nội</option>
+                    </select>
+                </div>
+                <!-- quận -->
+                <div class="col4">
+                    <label for="district" class="form-label">Thành phố</label>
+                    <select class="form-select" id="district">
+                        <option value="1">Quận Ba Đình</option>
+                    </select>
+                </div>
+                <!-- huyện, phường -->
+                <div class="col4">
+                    <label for="ward" class="form-label">Huyện/Phường</label>
+                    <select class="form-select" id="ward">
+                        <option value="1">Phường Phúc Xá</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <!-- địa chỉ nhà -->
+            <div class="mb-3">
+                <label for="address" class="form-label">Địa chỉ nhà</label>
+                <input type="text" class="form-control" id="address" placeholder="Số nhà, tên đường">
+            </div>
+
+            <!-- đặt hàng -->
+            <button class="btn btn-primary" >Đặt hàng</button>
+        
+        <!-- information -->
+        <div id="information"></div>
+        
+        </form>
+    </div>
+
+
+
+    <!-- code here -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"
+    ></script>
+
+    <script src="./02-indexAsyn.js"></script>
+
+</body>
+</html>
+
+

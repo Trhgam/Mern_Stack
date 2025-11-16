@@ -70,7 +70,7 @@ str3 = `${str1} mừng bạn đến với ${str2}`;
 //=== so sánh kiểu về pool hay new
 
 //6.split(token): băm chuỗi ra thành mảng theo token | từ
-// join(token) : nối các pt trong mnagr thành chuỗi theo token
+// join(token) : nối các pt trong mảng thành chuỗi theo token
 str1 = " xin     chào    các    bạn";
 //xin-chào-các-bạn
 str1 = str1
