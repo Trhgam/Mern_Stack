@@ -163,6 +163,7 @@ package.json là file quản lý những công nghệ mình đang dùng
 
 ```bash
 npm init --giúp tạo package.json
+
 ```
 
 giờ cài thử thư viện lodash thử
