@@ -32,6 +32,9 @@
   },
   "dependencies": {
     "@types/express": "^5.0.5",
-    "express": "^5.1.0"
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "express-validator": "^7.3.1",
+    "mongodb": "^6.21.0"
   }
 }

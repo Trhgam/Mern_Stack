@@ -1,6 +1,10 @@
 import express from 'express'
 import usersRouter from './routes/users.routes'
+import databaseServices from './services/database.services'
+
 const app = express() //dựng lên server
+databaseServices.connect()
+
 // const usersRouter = express.Router()
 const PORT = 3000
 
@@ -18,3 +22,5 @@ app.use('/users', usersRouter)
 app.listen(PORT, () => {
   console.log(`Server đang mở ở localhost: ${PORT}`)
 })
+
+

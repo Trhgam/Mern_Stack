@@ -1,6 +1,6 @@
 import express from 'express'
-import { loginController } from '~/controllers/users.controllers'
-import { loginValidator } from '~/middlewares/users.middlewares'
+import { loginController, registerController } from '~/controllers/users.controllers'
+import { loginValidator, registerValidator } from '~/middlewares/users.middlewares'
 
 const usersRouter = express.Router()
 
@@ -20,5 +20,25 @@ usersRouter.get('/', () => {
   console.log('ahihi')
 })
 usersRouter.post('/login', loginValidator, loginController)
+
+
+/* register : dang ki tai khaon
+path : users/register
+method: post
+body : {
+  email: string,
+  name: string,
+  password: string,
+  confirm_password: string,
+  date_of_birth: ISO8061,
+}
+
+
+
+*/
+usersRouter.post('/register', registerValidator, registerController)
+
+
+
 
 export default usersRouter
