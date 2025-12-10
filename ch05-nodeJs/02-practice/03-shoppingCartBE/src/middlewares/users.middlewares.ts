@@ -1,5 +1,8 @@
 import { NextFunction, Request, Response } from 'express'
 import { checkSchema } from 'express-validator'
+import HTTP_STATUS from '~/constants/httpStatus'
+import { USERS_MESSAGES } from '~/constants/messages'
+import { ErrorWithStatus } from '~/models/Errors'
 import { validate } from '~/utils/validation'
 
 export const loginValidator = (req: Request, res: Response, next: NextFunction) => {
@@ -12,33 +15,48 @@ export const loginValidator = (req: Request, res: Response, next: NextFunction) 
   next()
 }
 
-export const registerValidator = validate (
+// validate hàm đặc biệt , tìm hiểu kĩ lại
+export const registerValidator = validate(
   checkSchema(
     {
       name: {
-        notEmpty: true,
-        isString: true,
+        notEmpty: {
+          errorMessage: USERS_MESSAGES.NAME_IS_REQUIRED
+        },
+        isString: {
+          errorMessage: USERS_MESSAGES.NAME_MUST_BE_A_STRING
+        },
         trim: true,
         isLength: {
           options: {
             min: 1,
             max: 100
-          }
+          },
+          errorMessage: USERS_MESSAGES.NAME_LENGTH_MUST_BE_FROM_1_TO_100
         }
       },
       email: {
-        notEmpty: true,
-        isEmail: true,
+        notEmpty: {
+          errorMessage: USERS_MESSAGES.EMAIL_IS_REQUIRED
+        },
+        isEmail: {
+          errorMessage: USERS_MESSAGES.EMAIL_IS_INVALID
+        },
         trim: true
       },
       password: {
-        notEmpty: true,
-        isString: true,
+        notEmpty: {
+          errorMessage: USERS_MESSAGES.PASSWORD_IS_REQUIRED
+        },
+        isString: {
+          errorMessage: USERS_MESSAGES.PASSWORD_MUST_BE_A_STRING
+        },
         isLength: {
           options: {
             min: 8,
             max: 50
-          }
+          },
+          errorMessage: USERS_MESSAGES.PASSWORD_LENGTH_MUST_BE_FROM_8_TO_50
         },
         isStrongPassword: {
           options: {
@@ -50,19 +68,23 @@ export const registerValidator = validate (
             // returnScore: false
             // false : chỉ return true nếu password mạnh, false nếu k
             // true : return về chất lượng password(trên thang điểm 10)
-          }
-        },
-        errorMessage:
-          'password mus be at least 8 characters long and contain at least 1 lowercase letter, 1 uppercase letter, 1 number, and 1 symbol'
+          },
+          errorMessage: USERS_MESSAGES.PASSWORD_MUST_BE_STRONG
+        }
       },
       confirm_password: {
-        notEmpty: true,
-        isString: true,
+        notEmpty: {
+          errorMessage: USERS_MESSAGES.CONFIRM_PASSWORD_IS_REQUIRED
+        },
+        isString: {
+          errorMessage: USERS_MESSAGES.CONFIRM_PASSWORD_MUST_BE_A_STRING
+        },
         isLength: {
           options: {
             min: 8,
             max: 50
-          }
+          },
+          errorMessage: USERS_MESSAGES.CONFIRM_PASSWORD_LENGTH_MUST_BE_FROM_8_TO_50
         },
         isStrongPassword: {
           options: {
@@ -72,20 +94,14 @@ export const registerValidator = validate (
             minNumbers: 1,
             minSymbols: 1
           },
-          errorMessage:
-            'password mus be at least 8 characters long and contain at least 1 lowercase letter, 1 uppercase letter, 1 number, and 1 symbol'
+          errorMessage: USERS_MESSAGES.CONFIRM_PASSWORD_MUST_BE_STRONG
         },
         custom: {
           options: (value, { req }) => {
-            // value là trường dữ liệu đang có : confirm_password
             if (value !== req.body.password) {
-              // Lúc này các dữ liệu được lưu trong request nha
-              // Chui vào body và lấy nha
-
-              throw new Error('Confirm password does not match password')
-            } else {
-              return true
+              throw new Error(USERS_MESSAGES.CONFIRM_PASSWORD_MUST_BE_THE_SAME_AS_PASSWORD)
             }
+            return true
           }
         }
       },
@@ -94,7 +110,8 @@ export const registerValidator = validate (
           options: {
             strict: true,
             strictSeparator: true
-          }
+          },
+          errorMessage: USERS_MESSAGES.DATE_OF_BIRTH_BE_ISO8601
         }
       }
     },

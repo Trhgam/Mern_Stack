@@ -1,10 +1,16 @@
 import { Request, Response } from 'express'
 import { validationResult } from 'express-validator'
+import { RegisterReqBody } from '~/models/request/User.requests'
 import usersServices from '~/services/users.services'
+import { ParamsDictionary } from 'express-serve-static-core' //quan trọng
+import HTTP_STATUS from '~/constants/httpStatus'
+import { ErrorWithStatus } from '~/models/Errors'
+import { USERS_MESSAGES } from '~/constants/messages'
 
 export const loginController = (req: Request, res: Response) => {
   //kiểm tra
   const { email, password } = req.body
+  //chua đinh nghia nen ko xo ra 5 prop
   if (email != 'hehe@gmail.com' || password != '111') {
     return res.status(401).json({
       message: 'UnAnthentication'
@@ -16,8 +22,7 @@ export const loginController = (req: Request, res: Response) => {
   })
 }
 
-
-export const registerController = async (req: Request, res: Response) => {
+export const registerController = async (req: Request<ParamsDictionary, any, RegisterReqBody>, res: Response) => {
   //khưi lỗi trong request -  important
   // const error = validationResult(req)
   // if(!error.isEmpty()){
@@ -27,18 +32,26 @@ export const registerController = async (req: Request, res: Response) => {
   //   })
   // }
 
-
-  const {email , password} = req.body
+  // const { email, password } = req.body
   // có lỗi nếu db  cúp điện nên phải bọc catch
-  try{
-    const isExisted = await usersServices.checkEmaiExist(email)
-    if(isExisted){
-      const customError = new Error('Email has been used')
-      Object.defineProperty(customError, 'message',{
-        enumerable:true
-      })
-      throw customError
-    }
+
+  const isExisted = await usersServices.checkEmaiExist(req.body.email)
+  if (isExisted) {
+    // cách custom lỗi bthg 
+    // const customError = new Error('Email has been used')
+    // Object.defineProperty(customError, 'message', {
+    //   enumerable: true
+    // })
+    // throw customError
+
+
+    // cách 2 :
+    throw new ErrorWithStatus({
+      status: HTTP_STATUS.UNPROCESSABLE_ENTITY, // 422
+      message: USERS_MESSAGES.EMAIL_ALREADY_EXISTS
+    })
+  }
+
   // dữ liệu mà vào đc đến tầng này thì nó đã sạch rồi
   // kiểm tra validator và senidator (data đã đủ và sạch)
   // nhiệm vụ ở đây sẽ kiểm tra logic thôi
@@ -47,20 +60,12 @@ export const registerController = async (req: Request, res: Response) => {
   // * kiểm tra  logic có liên quan đến database đúng của data
   // - kiểm tra email đã có người dùng chưa ?
   // - tạo user mới và lưu trữ
-  const result = await usersServices.register({ email , password })
+  const result = await usersServices.register(req.body) //{email, password}
   //đóng gói
-  return res.status(200).json({
-    message : 'Register Success',
+  return res.status(HTTP_STATUS.OK).json({
+    message: USERS_MESSAGES.REGISTER_SUCCESSFULLY,
     result
   })
-  }catch(error){
-    return res.status(400).json({
-      message : 'Register failed',
-      error
-    })
-  }
-
 
   //* đóng gói response
-
 }
