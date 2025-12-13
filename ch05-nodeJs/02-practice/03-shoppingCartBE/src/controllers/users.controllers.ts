@@ -1,24 +1,37 @@
 import { Request, Response } from 'express'
 import { validationResult } from 'express-validator'
-import { RegisterReqBody } from '~/models/request/User.requests'
+import { LoginReqBody, RegisterReqBody } from '~/models/request/User.requests'
 import usersServices from '~/services/users.services'
 import { ParamsDictionary } from 'express-serve-static-core' //quan trọng
 import HTTP_STATUS from '~/constants/httpStatus'
 import { ErrorWithStatus } from '~/models/Errors'
 import { USERS_MESSAGES } from '~/constants/messages'
 
-export const loginController = (req: Request, res: Response) => {
-  //kiểm tra
-  const { email, password } = req.body
-  //chua đinh nghia nen ko xo ra 5 prop
-  if (email != 'hehe@gmail.com' || password != '111') {
-    return res.status(401).json({
-      message: 'UnAnthentication'
-    })
-  }
-  //đóng gói response
-  return res.status(200).json({
-    message: 'Login Successfully'
+
+  // //kiểm tra
+  // const { email, password } = req.body
+  // //chua đinh nghia nen ko xo ra 5 prop
+  // if (email != 'hehe@gmail.com' || password != '111') {
+  //   return res.status(401).json({
+  //     message: 'UnAnthentication'
+  //   })
+  // }
+  // //đóng gói response
+  // return res.status(200).json({
+  //   message: 'Login Successfully'
+  // })
+
+export const loginController = async (req: Request<ParamsDictionary, any, LoginReqBody>, res: Response) => {
+
+
+  //cách 2 
+  // dữ liệu dc gửi lên cho mình thông qua body gồm email và password
+  //
+  const result = await usersServices.login(req.body)
+
+  return res.status(HTTP_STATUS.OK).json({
+    message: USERS_MESSAGES.LOGIN_SUCCESS,
+    result
   })
 }
 

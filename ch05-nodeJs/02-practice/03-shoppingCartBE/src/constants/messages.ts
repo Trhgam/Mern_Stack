@@ -27,4 +27,5 @@ export const USERS_MESSAGES = {
   EMAIL_OR_PASSWORD_IS_INCORRECT: 'Email or password is incorrect',
 
   REGISTER_SUCCESSFULLY: 'Register successfully',
+  LOGIN_SUCCESS: 'Login successfully'
 } as const

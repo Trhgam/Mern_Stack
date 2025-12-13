@@ -20,7 +20,7 @@ body:{
 usersRouter.get('/', () => {
   console.log('ahihi')
 })
-usersRouter.post('/login', loginValidator, loginController)
+usersRouter.post('/login', loginValidator, wrapAsync(loginController))
 
 /* 
 register : dang ki tai khoan
@@ -38,7 +38,7 @@ register : dang ki tai khoan
 usersRouter.post(
   '/register',
   registerValidator, //
-  wrapAsync(registerController),
+  wrapAsync(registerController)
 )
 
 export default usersRouter
