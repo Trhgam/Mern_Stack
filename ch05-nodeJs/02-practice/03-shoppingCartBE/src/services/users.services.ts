@@ -9,6 +9,8 @@ import dotenv from 'dotenv'
 import { ErrorWithStatus } from '~/models/Errors'
 import HTTP_STATUS from '~/constants/httpStatus'
 import { USERS_MESSAGES } from '~/constants/messages'
+import { ObjectId } from 'mongodb'
+import RefreshToken from '~/models/RefreshToken.schema'
 dotenv.config()
 
 class UserServices {
@@ -37,18 +39,28 @@ class UserServices {
     )
 
     //ký ac and rf. Lấy user id của user vừa tạo để làm token
-    const user_id = result.insertedId.toString()
+    const user_id = result.insertedId.toString() // thằng này đã đuuwa về string
     //ký
     const [access_token, refresh_token] = await Promise.all([
       this.signAccessToken(user_id),
       this.signRefreshToken(user_id)
     ])
 
+    // thiếu hành động lưu mã rf vào database
+    await databaseServices.refreshTokens.insertOne(
+      new RefreshToken({
+        // muốn đưa id lên collection phải chuyen ve object
+        token: refresh_token,
+        user_id: new ObjectId(user_id)
+      })
+    )
+    //
     return {
       access_token,
       refresh_token
     }
   }
+  //---------------------------------------------------------
 
   async checkEmaiExist(email: string) {
     //promise ở đây
@@ -56,7 +68,7 @@ class UserServices {
     const user = await databaseServices.users.findOne({ email })
     return Boolean(user)
   }
-
+  // -----------------------------------------------------------------
   async login(payLoad: LoginReqBody) {
     //tìm user sở hữu 2 thông tin email và password
     const user = await databaseServices.users.findOne({
@@ -64,28 +76,66 @@ class UserServices {
       password: hashPassword(payLoad.password)
     })
     //nếu không tìm được
-    if(!user){
+    if (!user) {
       throw new ErrorWithStatus({
-        status : HTTP_STATUS.UNPROCESSABLE_ENTITY, //422
-        message : USERS_MESSAGES.EMAIL_OR_PASSWORD_IS_INCORRECT
+        status: HTTP_STATUS.UNPROCESSABLE_ENTITY, //422
+        message: USERS_MESSAGES.EMAIL_OR_PASSWORD_IS_INCORRECT
       })
     }
     // Nếu có user thì sao ?
     // phải đưa token chứ sao
     // tạo ac và rf token từ id vừa tìm được
     // muốn kí 1 mã phải có user id
-    const user_id = user._id.toString();
+    const user_id = user._id.toString()
     const [access_token, refresh_token] = await Promise.all([
       this.signAccessToken(user_id),
       this.signRefreshToken(user_id)
-    ])  
+    ])
+    // thiếu hành động lưu mã rf vào database
+    await databaseServices.refreshTokens.insertOne(
+      new RefreshToken({
+        // muốn đưa id lên collection phải chuyển về object thì mới lưu được
+        token: refresh_token,
+        user_id: new ObjectId(user_id)
+      })
+    )
     return {
       access_token,
       refresh_token
     }
-  
+  }
+  //---------------------------------------------------------
+
+  async checkRefreshToken({
+    user_id, //
+    refresh_token
+  }: {
+    user_id: string
+    refresh_token: string
+  }) {
+    //tìm refresh token dựa vào 2 thông tin đó
+    const refreshToken = await databaseServices.refreshTokens.findOne({
+      user_id: new ObjectId(user_id),
+      token: refresh_token
+    })
+    // nếu ko có thì lỗi
+    if (!refreshToken) {
+      throw new ErrorWithStatus({
+        status: HTTP_STATUS.UNAUTHORIZED,
+        message: USERS_MESSAGES.REFRESH_TOKEN_IS_INVALID
+      })
+    }
+    //còn nếu có thì thôi
+    return true
+  }
+  //-----------------------------------------------------------------------------
+  async logout(refresh_token: string) {
+   //xóa rf dựa vào token
+    await databaseServices.refreshTokens.deleteOne({ token: refresh_token })
+    return true
   }
 }
+
 const usersServices = new UserServices()
 export default usersServices
 //What Why How When

@@ -11,8 +11,8 @@ import { ErrorWithStatus } from '~/models/Errors'
 export const defaultErrorHandeler = (
     err : any, 
     req : Request ,
-     res : Response , 
-     next : NextFunction
+    res : Response , 
+    next : NextFunction
     ) => {
       //cách 1
       // return res.status(err.status || HTTP_STATUS.INTERNAL_SERVER_ERROR).json(omit(err, ['status']) )

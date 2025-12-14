@@ -1,4 +1,8 @@
 // Lưu những mô tả request chức năng có liên quan đến đối tượng User
+
+import { JwtPayload } from "jsonwebtoken"
+import { TokenType } from "~/constants/enums"
+
 // mô tả -> interface
 export interface RegisterReqBody {
   email: string
@@ -13,3 +17,13 @@ export interface LoginReqBody {
   email: string
   password: string
 }
+
+
+export interface LogoutReqBody {
+  refresh_token: string
+}
+export interface TokenPayLoad extends JwtPayload{
+  user_id : string,
+  token_type : TokenType
+}
+

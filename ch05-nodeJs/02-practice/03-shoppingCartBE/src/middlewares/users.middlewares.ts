@@ -1,8 +1,11 @@
 import { NextFunction, Request, Response } from 'express'
 import { checkSchema } from 'express-validator'
+import { JsonWebTokenError } from 'jsonwebtoken'
+import { capitalize } from 'lodash'
 import HTTP_STATUS from '~/constants/httpStatus'
 import { USERS_MESSAGES } from '~/constants/messages'
 import { ErrorWithStatus } from '~/models/Errors'
+import { verifyToken } from '~/utils/jwt'
 import { validate } from '~/utils/validation'
 
 export const loginValidator = validate(
@@ -151,5 +154,109 @@ export const registerValidator = validate(
       }
     },
     ['body']
+  )
+)
+
+export const accessTokenValidator = validate(
+  checkSchema(
+    {
+      Authorization: {
+        notEmpty: {
+          errorMessage: USERS_MESSAGES.ACCESS_TOKEN_IS_REQUIRED //422
+        },
+        custom: {
+          options: async (value: string, { req }) => {
+            // trong đó value là Authorization : 401
+
+            const access_token = value.split(' ')[1]
+            // nếu không có access_token
+            if (!access_token) {
+              throw new ErrorWithStatus({
+                status: HTTP_STATUS.UNAUTHORIZED, //401 do cố ý gửi thiếu
+                message: USERS_MESSAGES.ACCESS_TOKEN_IS_REQUIRED
+              })
+            }
+            // nếu có access_token thì verify bằng privateKey của mình
+            try {
+              const decoded_authorization = await verifyToken({ token: access_token })
+              ;(req as Request).decoded_authorization = decoded_authorization //mới
+              // luê vô req thì khi qua conteoller mới lấy user_id để dùng được
+              // ko đc đứng ở middleware mà đục vô db nha, phảu qua cointroller và vande la controller sẽ ko có user_í nên buộc
+              // phải lưu vô req để gửi
+              // vì req của midd và controller là 1
+              //tạo  ra vùng mới tên v
+            } catch (error) {
+              throw new ErrorWithStatus({
+                status: HTTP_STATUS.UNAUTHORIZED, //401
+                message: capitalize((error as JsonWebTokenError).message)
+                // lỗi của jwt là  JsonWebTokenError nên ta lấy luôn mess của nó luôn
+                // và lodash cho ta hàm capitalize vì lỗi của jwt luôn là lowercase
+                // ta nên đưa nó về cappitalize tức viết hoa chữ đầu
+                // lồi này phải 401 nên nếu ko bắt nó sẽ vô checkSchema và mang lỗi 422
+              })
+            }
+            //
+            return true
+          }
+        }
+      }
+    },
+    ['headers']
+  )
+)
+
+//------------------------------------------------------
+// body{
+//   refresh_token : string
+// }
+
+export const refreshTokenValidator = validate(
+  checkSchema(
+    {
+      refresh_token: {
+        notEmpty: {
+          errorMessage: USERS_MESSAGES.REFRESH_TOKEN_IS_REQUIRED //422
+        },
+        custom: {
+          options: async (value: string, { req }) => {
+            // trong đó value là REFRESH_TOKEN_IS_REQUIRED : 401
+
+            // nếu không có REFRESH_TOKEN
+            if (!value) {
+              throw new ErrorWithStatus({
+                status: HTTP_STATUS.UNAUTHORIZED, //401 do cố ý gửi thiếu
+                message: USERS_MESSAGES.REFRESH_TOKEN_IS_REQUIRED
+              })
+            }
+            // nếu có REFRESH_TOKEN thì verify bằng privateKey của mình
+            try {
+              const decoded_refresh_token = await verifyToken({ token: value }) //value là REFRESH_TOKEN
+
+              // req.decoded_refresh_token = decoded_refresh_token // cái cũ
+
+              ;(req as Request).decoded_refresh_token = decoded_refresh_token //mới
+
+              // luê vô req thì khi qua conteoller mới lấy user_id để dùng được
+              // ko đc đứng ở middleware mà đục vô db nha, phảu qua cointroller và vande la controller sẽ ko có user_í nên buộc
+              // phải lưu vô req để gửi
+              // vì req của midd và controller là 1
+              //tạo  ra vùng mới tên v
+            } catch (error) {
+              throw new ErrorWithStatus({
+                status: HTTP_STATUS.UNAUTHORIZED, //401
+                message: capitalize((error as JsonWebTokenError).message)
+                // lỗi của jwt là  JsonWebTokenError nên ta lấy luôn mess của nó luôn
+                // và lodash cho ta hàm capitalize vì lỗi của jwt luôn là lowercase
+                // ta nên đưa nó về cappitalize tức viết hoa chữ đầu
+                // lồi này phải 401 nên nếu ko bắt nó sẽ vô checkSchema và mang lỗi 422
+              })
+            }
+            //
+            return true
+          }
+        }
+      }
+    },
+    ['body'] // ko kt header nữa mà qua body nha
   )
 )
