@@ -34,11 +34,11 @@ dotenv.config()
 
 export const signToken = ({
   payload,
-  privateKey = process.env.JWT_SECRET as string,
+  privateKey ,
   options = { algorithm: 'HS256' }
 }: {
   payload: any
-  privateKey?: string
+  privateKey: string
   options?: jwt.SignOptions
 }) => {
   //đừng thiếu return nha chưa má
@@ -55,10 +55,10 @@ signToken
 
 export const verifyToken = ({
   token,
-  privateKey = process.env.JWT_SECRET as string
+  privateKey 
 } : {
   token : string
-  privateKey? : string
+  privateKey : string
 }) => {
   return new Promise<TokenPayLoad>((resolve , reject) => {
     jwt.verify(token, privateKey, (error, decoded) => {

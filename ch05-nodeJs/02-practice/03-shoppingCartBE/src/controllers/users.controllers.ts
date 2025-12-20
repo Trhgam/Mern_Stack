@@ -1,3 +1,4 @@
+import { ForgotPasswordReqBody, VerifyEmailReqQuery } from './../models/request/User.requests'
 import { Request, Response } from 'express'
 import { validationResult } from 'express-validator'
 import { LoginReqBody, LogoutReqBody, RegisterReqBody, TokenPayLoad } from '~/models/request/User.requests'
@@ -6,6 +7,7 @@ import { ParamsDictionary } from 'express-serve-static-core' //quan trọng
 import HTTP_STATUS from '~/constants/httpStatus'
 import { ErrorWithStatus } from '~/models/Errors'
 import { USERS_MESSAGES } from '~/constants/messages'
+import { UserVerifyStatus } from '~/constants/enums'
 
 // //kiểm tra
 // const { email, password } = req.body
@@ -87,13 +89,13 @@ export const logoutController = async (
   // console.log(req.decoded_authorization)
   // đến đây thì dữ liệu đã sạch và ac và rf đc deccode
   // mình sẽ so sánh 2 user_id trong payload của rf và ac
-  const { user_id : user_id_ac } = req.decoded_authorization as TokenPayLoad
-  const { user_id : user_id_rf } = req.decoded_refresh_token as TokenPayLoad
+  const { user_id: user_id_ac } = req.decoded_authorization as TokenPayLoad
+  const { user_id: user_id_rf } = req.decoded_refresh_token as TokenPayLoad
   // nếu không khớp user_id thì
-  if(user_id_ac !== user_id_rf){
+  if (user_id_ac !== user_id_rf) {
     throw new ErrorWithStatus({
-      status : HTTP_STATUS.UNAUTHORIZED,
-      message : USERS_MESSAGES.REFRESH_TOKEN_IS_INVALID
+      status: HTTP_STATUS.UNAUTHORIZED,
+      message: USERS_MESSAGES.REFRESH_TOKEN_IS_INVALID
     })
   }
   //nếu khớp thì
@@ -110,3 +112,91 @@ export const logoutController = async (
     message: USERS_MESSAGES.LOGOUT_SUCCESS
   })
 }
+
+export const verifyEmailController = async (
+  req: Request<ParamsDictionary, any, any, VerifyEmailReqQuery>, //
+  res: Response
+) => {
+  //
+  // phải định nghia nha
+  // lưu ý vị trí của nó nha vìnos là query á
+  // ko phải any đâu nha
+  // nó là ParsedQs nên cần tìm gốc của nó để định nghĩa import bên file User.request.ts
+  // nó giống ParamDictionary đó (yêu cầu kihn nghiệm mới biết đc nên phải nhứo rõ nhaaa)
+
+  // vô
+  const { email_verify_token } = req.query
+  const { user_id } = req.decoded_email_verify_token as TokenPayLoad
+
+  // kiểm tra xem email_verify_token này có
+  // phải thuộc sở hữu của user_id không
+
+  await usersServices.checkEmailVerifyToken({
+    user_id,
+    email_verify_token
+  })
+  // nếu ok thì, mình sẽ verify email đó
+  // mình sẽ verifyEmail(cập nhật thông tin user
+  //thông qua user_id )
+  await usersServices.verifyEmail(user_id)
+  // thông báo thành công khi ok hết
+  return res.status(HTTP_STATUS.OK).json({
+    message: USERS_MESSAGES.EMAIL_VERIFY_SUCCESS
+  })
+}
+
+export const resendVerifyEmailController = async (
+  req: Request<ParamsDictionary, any, any, any>,
+  res: Response
+) => { 
+  //đến đây thì ac đã đc doce
+  //đến được tàng này nghxia là mình đã qua được accessTokenValidator
+  //có nghxia là có decoded_authorization và trong đó có user_id
+  //dùng user_id để tìm user và lấy ra thông tin verify
+  //từ đó nếu chưa verify thì gửi mail verify lại
+  const {user_id} = req.decoded_authorization as TokenPayLoad
+  const verify = await usersServices.getVerifyStatus(user_id) //trong doc sai
+  //nếu trạng thái của người dùng verified thì mình không lại link
+  if(verify == UserVerifyStatus.Verified){
+    return res.status(HTTP_STATUS.OK).json({
+      message : USERS_MESSAGES.EMAIL_ALREADY_VERIFIED_BEFORE
+    })
+  }
+  //nếu bị banned thì cũng ko đc gửi
+  if(verify == UserVerifyStatus.Banned){
+    return res.status(HTTP_STATUS.OK).json({
+      message : USERS_MESSAGES.ACCOUNT_HAS_BEEN_BANNED
+    })  
+  }
+  //nếu chưa verify thì gửi lại link
+  if(verify == UserVerifyStatus.Unverified){
+    await usersServices.resendVerifyEmail(user_id)
+    return res.status(HTTP_STATUS.OK).json({
+      message : USERS_MESSAGES.RESEND_VERIFY_EMAIL_SUCCESS
+    })
+  }
+}
+
+
+export const forgotPasswordController = async(
+  req : Request<ParamsDictionary, any, ForgotPasswordReqBody> ,
+  res : Response
+)=>{
+  // người ta gửi mail để xin link thì mình phải xem email này
+  // có thuộc sở hữu của user nào không
+  const {email} = req.body
+  const isExisted = await usersServices.checkEmaiExist(email)
+  // nếu không có thì báo lỗi
+  if(!isExisted){
+    throw new ErrorWithStatus({
+      status : HTTP_STATUS.UNPROCESSABLE_ENTITY, //422
+      message : USERS_MESSAGES.USER_NOT_FOUND
+    })
+  }
+  // nếu có thì mình mơi tạo forgot_pasword_token và gửi mail
+  await usersServices.forgotPassword(email)
+  return res.status(HTTP_STATUS.OK).json({
+    message : USERS_MESSAGES.CHECK_YOUR_EMAIL_TO_RESET_PASSWORD
+  })
+}
+

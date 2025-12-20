@@ -2,6 +2,8 @@
 
 import { JwtPayload } from "jsonwebtoken"
 import { TokenType } from "~/constants/enums"
+import { ParsedQs } from "qs"
+
 
 // mô tả -> interface
 export interface RegisterReqBody {
@@ -27,3 +29,10 @@ export interface TokenPayLoad extends JwtPayload{
   token_type : TokenType
 }
 
+export interface VerifyEmailReqQuery extends ParsedQs{
+  email_verify_token : string
+}
+
+export interface ForgotPasswordReqBody{
+  email : string
+}

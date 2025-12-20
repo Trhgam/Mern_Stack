@@ -10,7 +10,7 @@ Quy tắc đặt tên
 - nguyên tắc CammelCase (biến)
 - nguyên tắc underScore (schema diagram | database)
 - PascalCase-UpperCammelCase( Class )
-- được phép dùng _ và $ ở đầu _private $protected ở một số ngôn ngữ
+- được phép dùng _ và  $(đô la)  ở đầu  _private $protected ở một số ngôn ngữ
 
 Javascript có cơ chế hosting với var (hoisting : móc ngược lên) và function
 </br>

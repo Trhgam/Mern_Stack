@@ -4,12 +4,12 @@
 import { RequestHandler } from 'express'
 import { NextFunction, Request, Response } from 'express-serve-static-core'
 
-export const wrapAsync = (func: RequestHandler) => {
-    return async (req: Request, res: Response, next: NextFunction) => {
-        try {
+export const wrapAsync = <P,T> (func: RequestHandler<P,any,any,T>) => {
+    return async (req: Request<P, any, any, T>, res: Response, next: NextFunction) => {
+      try {
         await func(req, res, next) //tự nhứo tự thêm await nha
-        } catch (error) {
-            next(error)
-        }
+      } catch (error) {
+        next(error)
+      }
     }
 }

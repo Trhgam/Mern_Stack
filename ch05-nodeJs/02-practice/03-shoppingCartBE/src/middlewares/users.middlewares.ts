@@ -178,7 +178,10 @@ export const accessTokenValidator = validate(
             }
             // nếu có access_token thì verify bằng privateKey của mình
             try {
-              const decoded_authorization = await verifyToken({ token: access_token })
+              const decoded_authorization = await verifyToken({
+                token: access_token, //
+                privateKey: process.env.JWT_SECRET_ACCESS_TOKEN as string
+              })
               ;(req as Request).decoded_authorization = decoded_authorization //mới
               // luê vô req thì khi qua conteoller mới lấy user_id để dùng được
               // ko đc đứng ở middleware mà đục vô db nha, phảu qua cointroller và vande la controller sẽ ko có user_í nên buộc
@@ -230,7 +233,10 @@ export const refreshTokenValidator = validate(
             }
             // nếu có REFRESH_TOKEN thì verify bằng privateKey của mình
             try {
-              const decoded_refresh_token = await verifyToken({ token: value }) //value là REFRESH_TOKEN
+              const decoded_refresh_token = await verifyToken({
+                token: value, //
+                privateKey: process.env.JWT_SECRET_REFRESH_TOKEN as string
+              }) //value là REFRESH_TOKEN
 
               // req.decoded_refresh_token = decoded_refresh_token // cái cũ
 
@@ -258,5 +264,57 @@ export const refreshTokenValidator = validate(
       }
     },
     ['body'] // ko kt header nữa mà qua body nha
+  )
+)
+
+export const emailVerifyTokenValidator = validate(
+  checkSchema(
+    {
+      email_verify_token: {
+        trim: true,
+        notEmpty: {
+          errorMessage: USERS_MESSAGES.EMAIL_VERIFY_TOKEN_IS_REQUIRED
+        },
+        //mneeus có thì mình phải verify và koc ó hàm nào có sẵn cả
+        custom: {
+          options: async (value: string, { req }) => {
+            //trong đó value là email_verify_token
+            try{
+              const decoded_email_verify_token =  await verifyToken({
+              token: value,
+              privateKey: process.env.JWT_SECRET_EMAIL_VERIFY_TOKEN as string
+            })
+            //cần lưu vào req để dùng cho controller
+            ;(req as Request).decoded_email_verify_token = decoded_email_verify_token
+            }catch(error){
+              throw new ErrorWithStatus({
+                status: HTTP_STATUS.UNAUTHORIZED, //401
+                message: capitalize((error as JsonWebTokenError).message)
+              })  
+            }
+            //return true phải ngaouif try catch nha
+            return true // passed validator
+          }
+        }
+      }
+    },
+    ['query']
+  )
+)
+
+export const forgotPasswordValidator = validate(
+  checkSchema(
+    {
+      email: {
+        notEmpty: {
+          errorMessage: USERS_MESSAGES.EMAIL_IS_REQUIRED
+        },
+        isEmail: {
+          errorMessage: USERS_MESSAGES.EMAIL_IS_INVALID
+        },
+        trim: true
+      }
+    },
+    ['body']
   )
 )
