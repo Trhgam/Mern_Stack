@@ -1,12 +1,15 @@
 import express from 'express'
-import { forgotPasswordController, loginController, logoutController, registerController, resendVerifyEmailController, verifyEmailController } from '~/controllers/users.controllers'
+import { forgotPasswordController, getMeController, loginController, logoutController, registerController, resendVerifyEmailController, resetPasswordController, updateMeController, verifyEmailController, verifyForgotPasswordController } from '~/controllers/users.controllers'
 import {
   accessTokenValidator,
   emailVerifyTokenValidator,
+  forgotPasswordTokenValidator,
   forgotPasswordValidator,
   loginValidator,
   refreshTokenValidator,
-  registerValidator
+  registerValidator,
+  resetPasswordValidator,
+  updateMeValidator
 } from '~/middlewares/users.middlewares'
 import { wrapAsync } from '~/utils/handler'
 
@@ -113,4 +116,79 @@ usersRouter.post(
   forgotPasswordValidator,// kiểm tra email người dùng gửi lên qua body
   wrapAsync(forgotPasswordController)
 )
-export default usersRouter
+
+
+
+/*verify-forgot-password 
+des: người dùng bấm vào link trong mail là gửi forgot_password_token cho FE
+FE sẽ gửi forgot pasword về BE để kiểm tra verify
+trước khi hiển thị giao diện nhập mật khẩu mới 
+method: POST
+body:{
+  forgot_password_token : string
+}
+*/
+usersRouter.post(
+  '/verify-forgot-password', //
+  forgotPasswordTokenValidator,
+  wrapAsync(verifyForgotPasswordController)
+)
+
+/* reset-password
+des: người dùng nhập mật kkhaaur mới và gửi về backend để cập nhật
+path : /users/reset-password
+method : POST
+body:{
+  forgot_password+token : string,
+  password : string,
+  confirm_password : string
+}
+
+*/
+usersRouter.post(
+  '/reset-password',
+  forgotPasswordTokenValidator, //kiểm tra forgot_password_token có rồi
+  resetPasswordValidator, // kiểm tra password , confirm_password
+  wrapAsync(resetPasswordController)
+)
+//login | forgot | reset | test lạmi login
+
+/*getMe
+des : lấy thông tin của chính người dùng đang đăng nhập
+path : /users/me
+method : POST (vì mình phải cho hệ thôgn biết mình là ai )
+headers{
+  Authentication : 'Bear access_token' (cung cấp access_token để biết mình là ai)
+
+} */
+usersRouter.post(
+  '/me',//
+  accessTokenValidator, //verify_token mình làm rồi
+  wrapAsync(getMeController))
+//send : gửi nguyên htmlk cho FE để nó hiển thị ra ngoài
+
+
+
+/*
+des: update profile của user
+path: '/me'
+method: patch
+Header: {Authorization: Bearer <access_token>}
+body: {
+  name?: string
+  date_of_birth?: Date
+  bio?: string // optional
+  location?: string // optional
+  website?: string // optional
+  username?: string // optional
+  avatar?: string // optional
+  cover_photo?: string // optional}
+*/
+
+usersRouter.patch(
+  "/me",
+  accessTokenValidator,
+  updateMeValidator,
+  wrapAsync(updateMeController)
+);
+export default usersRouter 

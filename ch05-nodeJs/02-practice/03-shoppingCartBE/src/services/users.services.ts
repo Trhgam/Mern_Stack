@@ -1,6 +1,6 @@
 import User from '~/models/User.schema'
 import databaseServices from './database.services'
-import { LoginReqBody, RegisterReqBody } from '~/models/request/User.requests'
+import { LoginReqBody, RegisterReqBody, UpdateMeReqBody } from '~/models/request/User.requests'
 import { hashPassword } from '~/utils/crypto'
 import { signToken } from '~/utils/jwt'
 import { StringValue } from 'ms'
@@ -183,18 +183,19 @@ class UserServices {
         message: USERS_MESSAGES.EMAIL_VERIFY_TOKEN_IS_INVALID
       })
     }
-    // nếu có thì thôi ko làm gì cả 
+    // nếu có thì thôi ko làm gì cả
   }
 
-  async verifyEmail(user_id : string){
+  async verifyEmail(user_id: string) {
     await databaseServices.users.updateOne(
       {
-        _id : new ObjectId(user_id)
-      },[
+        _id: new ObjectId(user_id)
+      },
+      [
         {
-          $set : {
-            verify : UserVerifyStatus.Verified, //1
-            email_verify_token : '',
+          $set: {
+            verify: UserVerifyStatus.Verified, //1
+            email_verify_token: '',
             updated_at: '$$NOW'
           }
         }
@@ -202,62 +203,160 @@ class UserServices {
     )
   }
   //
-  async getVerifyStatus(user_id : string){
-    const user = await databaseServices.users.findOne({_id : new ObjectId(user_id)})
-    if(!user){
+  async getVerifyStatus(user_id: string) {
+    const user = await databaseServices.users.findOne({ _id: new ObjectId(user_id) })
+    if (!user) {
       throw new ErrorWithStatus({
-        status : HTTP_STATUS.NOT_FOUND, //401
-        message : USERS_MESSAGES.USER_NOT_FOUND
-      })  
+        status: HTTP_STATUS.NOT_FOUND, //401
+        message: USERS_MESSAGES.USER_NOT_FOUND
+      })
     }
     return user.verify // chỉ return trạng thái verify , ko được return user
   }
 
-  async resendVerifyEmail(user_id : string){
+  async resendVerifyEmail(user_id: string) {
     // tạo email_verify_token từ user_id
     const email_verify_token = await this.signEmailVerifyToken(user_id)
     //cập nhật lại email_verify_token vào user
-    await databaseServices.users.updateOne(
-      {_id : new ObjectId(user_id)},
-      [
-        {
-          $set : {
-            email_verify_token,
-            updated_at : '$$NOW'
-          }
+    await databaseServices.users.updateOne({ _id: new ObjectId(user_id) }, [
+      {
+        $set: {
+          email_verify_token,
+          updated_at: '$$NOW'
         }
-      ]
-    )
+      }
+    ])
     // gửi lại link verify qua email (link này lấy trong hàm register)
     console.log(`http://localhost:3000/users/verify-email/?email_verify_token=${email_verify_token}`)
-    
   }
 
-  async forgotPassword(email : string){
+  async forgotPassword(email: string) {
     //tìm user thông qua email để lấy user_id
     //từ user_id đó mới tạo được token
     const user = await databaseServices.users.findOne({ email })
     const user_id = user!._id.toString() //đảm bảo có user rồi    | chấm than ngược
     //từ user_id mới tạo được mã forgot_pasword_token
-    const forgot_pasword_token = await this.signForgotPasswordToken(user_id)
+    const forgot_password_token = await this.signForgotPasswordToken(user_id)
     //cập nhật forgot_pasword_token vào user
     await databaseServices.users.updateOne(
-      {_id : new ObjectId(user_id)},//
+      { _id: new ObjectId(user_id) }, //
       [
         {
-          $set : {
-            forgot_pasword_token,
-            updated_at : '$$NOW'
+          $set: {
+            forgot_password_token,
+            updated_at: '$$NOW'
           }
         }
       ]
     )
-    // tạo link 
-    console.log(`http://localhost:3000/users/reset-pasword/?forgot_pasword_token=${forgot_pasword_token}`)
-    
+    // tạo link
+    console.log(`http://localhost:8000/users/reset-pasword/?forgot_password_token=${forgot_password_token}`)
+  }
+
+  async checkForgotPasswordToken({
+    user_id, //
+    forgot_password_token
+  }: {
+    user_id: string
+    forgot_password_token: string
+  }) {
+    // với 2 thông tin trên tìm user sở hữu cả 2
+    // nếu có nghĩa là mã tiken còn hiệu lực
+    const user = await databaseServices.users.findOne({
+      _id: new ObjectId(user_id),
+      forgot_password_token
+    })
+    //nếu không có user
+    if (!user) {
+      throw new ErrorWithStatus({
+        status: HTTP_STATUS.UNAUTHORIZED,
+        message: USERS_MESSAGES.FORGOT_PASSWORD_TOKEN_IS_INVALID
+      })
+    }
+    //nếu có thì thôi
+  }
+
+  async resetPassword({ user_id, password }: { user_id: string; password: string }) {
+    await databaseServices.users.updateOne(
+      { _id: new ObjectId(user_id) }, //filter
+      [
+        {
+          $set: {
+            password: hashPassword(password),
+            forgot_password_token: '', // xóa token đi
+            updated_at: '$$NOW' //đừng thiếu ed
+          }
+        }
+      ]
+    )
+    //nếu xong thì thôi
+  }
+  async getMe(user_id: string) {
+    const user = await databaseServices.users.findOne(
+      {
+        _id: new ObjectId(user_id)
+      }, //
+      {
+        projection: {
+          password: 0, // 0 : false (không hiẹn trường dữ liệu nhạy cảm này)
+          email_verify_token: 0,
+          forgot_password_token: 0
+        }
+      }
+    )
+    //nếu mà tìm ko có thì sao
+    if (!user) {
+      throw new ErrorWithStatus({
+        status: HTTP_STATUS.UNPROCESSABLE_ENTITY, //422
+        message: USERS_MESSAGES.USER_NOT_FOUND
+      })
+    }
+    //nếu có thì return userInfor ra ngoài
+    return user
+  }
+  async updateMe({ user_id, payload }: { user_id: string; payload: UpdateMeReqBody }) {
+    //trong payload có date_of_birth  và username là 2 trường đặc biệt//
+    const _payload = payload.date_of_birth //
+      ? { ...payload, date_of_birth: new Date(payload.date_of_birth) } //
+      : payload //
+    // nếu người dùng muốn update username thì phải xem nó có trùng ko trước
+    if (payload.username) {
+      const user = await databaseServices.users.findOne({
+        username: payload.username
+      })
+      // nếu có user dùng rồi thì báo lỗi
+      if (user) {
+        throw new ErrorWithStatus({
+          status: HTTP_STATUS.UNPROCESSABLE_ENTITY, //422
+          message: USERS_MESSAGES.USERNAME_ALREADY_EXISTS
+        })
+      }
+    }
+    // tiến hành cập nhật
+    //ko dùng updateOne vì nó trả về 1 obejct đã update xong luôn
+    const userInfor = await databaseServices.users.findOneAndUpdate(
+      { _id: new ObjectId(user_id) }, //filter
+      [
+        {
+          $set: {
+            ..._payload,
+            updated_at: '$$NOW'
+          }
+        }
+      ],
+      {
+        returnDocument: 'after', //trả về document sau khi update
+        projection: {
+          password: 0, // 0 false ko hiện trường này á
+          email_verify_token: 0,
+          forgot_password_token: 0
+        }
+      }
+    )
+    //
+    return userInfor
   }
 }
-
 
 const usersServices = new UserServices()
 export default usersServices
