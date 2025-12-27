@@ -1,7 +1,9 @@
 import express from 'express'
-import { forgotPasswordController, getMeController, loginController, logoutController, registerController, resendVerifyEmailController, resetPasswordController, updateMeController, verifyEmailController, verifyForgotPasswordController } from '~/controllers/users.controllers'
+import { changePasswordController, forgotPasswordController, getMeController, loginController, logoutController, refreshTokenController, registerController, resendVerifyEmailController, resetPasswordController, updateMeController, verifyEmailController, verifyForgotPasswordController } from '~/controllers/users.controllers'
+import { filterMiddlewares } from '~/middlewares/common.middleware'
 import {
   accessTokenValidator,
+  changePasswordValidator,
   emailVerifyTokenValidator,
   forgotPasswordTokenValidator,
   forgotPasswordValidator,
@@ -11,6 +13,7 @@ import {
   resetPasswordValidator,
   updateMeValidator
 } from '~/middlewares/users.middlewares'
+import { UpdateMeReqBody } from '~/models/request/User.requests'
 import { wrapAsync } from '~/utils/handler'
 
 const usersRouter = express.Router()
@@ -187,8 +190,54 @@ body: {
 
 usersRouter.patch(
   "/me",
+  filterMiddlewares<UpdateMeReqBody>(["name", "date_of_birth", "bio", "location", "website", "username", "avatar", "cover_photo"]),
   accessTokenValidator,
   updateMeValidator,
   wrapAsync(updateMeController)
 );
+
+/* desc : change-password
+nhớ password nha
+chức năng : thay đổi password
+method : put
+header;{
+  Authorization : 'Bearer <access_token>'
+}
+body : {
+  old_password : string,
+  password : string,
+  confirm_pasword : string
+}
+
+-patch (khi chuyển lên rất nhiều thông tin)
+-put (dúng khi muốn update)
+-post (dùng gì cũng được)
+
+*/
+usersRouter.put("/change-password",
+  accessTokenValidator,
+  changePasswordValidator,
+  wrapAsync(changePasswordController)
+)
+// cách test login trc r test
+//------------------------------------------
+/*
+desc : refresh-token
+khi người dùng hết hạn access_token thì họ sẽ gửi refresh_token lên 
+để xin access_token và refresh_token mới
+path : users/refresh-token
+method : post
+body : {
+  refresh_token : string
+}
+*/
+usersRouter.post(
+  '/refresh-token',
+  refreshTokenValidator,//
+  wrapAsync(refreshTokenController)
+)
+
+
+
+
 export default usersRouter 

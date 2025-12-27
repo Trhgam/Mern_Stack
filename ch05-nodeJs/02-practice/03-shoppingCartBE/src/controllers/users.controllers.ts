@@ -1,5 +1,7 @@
 import {
+  ChangePasswordReqBody,
   ForgotPasswordReqBody,
+  RefreshTokenReqBody,
   ResetPasswordReqBody,
   UpdateMeReqBody,
   VerifyEmailReqQuery,
@@ -9,7 +11,7 @@ import { Request, Response } from 'express'
 import { validationResult } from 'express-validator'
 import { LoginReqBody, LogoutReqBody, RegisterReqBody, TokenPayLoad } from '~/models/request/User.requests'
 import usersServices from '~/services/users.services'
-import { ParamsDictionary } from 'express-serve-static-core' //quan trọng
+import { NextFunction, ParamsDictionary } from 'express-serve-static-core' //quan trọng
 import HTTP_STATUS from '~/constants/httpStatus'
 import { ErrorWithStatus } from '~/models/Errors'
 import { USERS_MESSAGES } from '~/constants/messages'
@@ -270,4 +272,47 @@ export const updateMeController = async (req: Request<ParamsDictionary, any, Upd
   return res.status(HTTP_STATUS.OK).json({
     message: USERS_MESSAGES.UPDATE_PROFILE_SUCCESS
   })
+
+}
+
+export const changePasswordController = async (
+  req: Request<ParamsDictionary, any, ChangePasswordReqBody> ,//
+  res: Response,
+  next : NextFunction
+) => {  
+  const { user_id } = req.decoded_authorization as TokenPayLoad
+  const { old_password, password  } = req.body
+  await usersServices.changePassword({
+    user_id,
+    old_password,
+    password
+  })
+  return res.status(HTTP_STATUS.OK).json({
+    message: USERS_MESSAGES.CHANGE_PASSWORD_SUCCESS
+  })
+}
+
+export const refreshTokenController = async (
+  req: Request<ParamsDictionary, any, RefreshTokenReqBody> ,//
+  res: Response,
+  next : NextFunction
+) => {  
+  const {user_id} = req.decoded_refresh_token as TokenPayLoad
+  const { refresh_token } = req.body
+  await usersServices.checkRefreshToken({
+    user_id,
+    refresh_token
+  })
+  // nếu kiểm tra không có bug gì thì mình tiến hành refresh cho người ta
+  await usersServices.refreshToken({
+    user_id,
+    refresh_token
+  })
+  const result = await usersServices.getMe(user_id)
+  return res.status(HTTP_STATUS.OK).json({
+    message: USERS_MESSAGES.REFRESH_TOKEN_SUCCESS,
+    result // ac và rf mới
+  })
+
+  
 }

@@ -54,6 +54,7 @@ class UserServices {
     const result = await databaseServices.users.insertOne(
       new User({
         _id: user_id,
+        username:`user${user_id.toString()}`,
         email_verify_token,
         ...payLoad,
         date_of_birth: new Date(payLoad.date_of_birth),
@@ -355,6 +356,69 @@ class UserServices {
     )
     //
     return userInfor
+  }
+
+  async changePassword({
+    user_id,
+    old_password,
+    password  //
+  }: {
+    user_id: string
+    old_password: string
+    password: string
+  }) {
+    //dựa vào user_id và old_pasword tìm xem có user nào không
+    const user = await databaseServices.users.findOne({
+      _id: new ObjectId(user_id),
+      password: hashPassword(old_password)
+    })
+    //nếu không có nghĩa là người dùng nhập sai password cũ rồi
+    if(!user){
+      throw new ErrorWithStatus({
+        status: HTTP_STATUS.UNAUTHORIZED, 
+        message: USERS_MESSAGES.USER_NOT_FOUND
+      })
+    }
+    //nếu mà tìm được , thì nghĩa là nhập đúng pasword cũ, tiến hành update
+    await databaseServices.users.updateOne(
+      { _id: new ObjectId(user_id) }, //
+      [
+        {
+          $set: {
+            password: hashPassword(password),
+            updated_at: '$$NOW'
+          }
+        }
+      ]
+    )
+    // return true
+  }
+
+  async refreshToken({ user_id, refresh_token //
+    }: { 
+      user_id: string; 
+      refresh_token: string 
+    }) {
+      //tạo ac và rf mới
+      const [access_token, new_refresh_token] = await Promise.all([
+        this.signAccessToken(user_id),
+        this.signRefreshToken(user_id)
+        //mã nên trùng với ngày hết hạn của mã cũ
+      ])
+      //xóa rf cũ
+      await databaseServices.refreshTokens.deleteOne({ token: refresh_token }) 
+      //lưu rf mới
+      await databaseServices.refreshTokens.insertOne(
+        new RefreshToken({
+          token: new_refresh_token,
+          user_id: new ObjectId(user_id)
+        })
+      )
+      //gửi ac và rf mới cho người dùng
+      return {
+        access_token,
+        refresh_token: new_refresh_token // Đã xóa dấu cách và dùng đúng tên biến
+      }
   }
 }
 

@@ -4,6 +4,7 @@ import { JsonWebTokenError } from 'jsonwebtoken'
 import { capitalize } from 'lodash'
 import HTTP_STATUS from '~/constants/httpStatus'
 import { USERS_MESSAGES } from '~/constants/messages'
+import { REGEX_USERNAME } from '~/constants/regex'
 import { ErrorWithStatus } from '~/models/Errors'
 import { verifyToken } from '~/utils/jwt'
 import { validate } from '~/utils/validation'
@@ -433,6 +434,17 @@ export const updateMeValidator = validate(
             max: 50
           },
           errorMessage: USERS_MESSAGES.USERNAME_LENGTH_MUST_BE_LESS_THAN_50 //messages.ts thêm USERNAME_LENGTH_MUST_BE_LESS_THAN_50: 'Username length must be less than 50'
+        },
+        custom: {
+          options: (value: string, { req }) => {
+            //value lúc này là username , đại diện cho trường dữ liệu đang chứa nó
+            if (!REGEX_USERNAME.test(value)) {
+              // nếu là value trước thì dùng matches
+              // còn regex trước thì phải dùng test
+              throw new Error(USERS_MESSAGES.USERNAME_IS_INVALID)
+            }
+            return true
+          }
         }
       },
       avatar: imageSchema,
@@ -442,5 +454,13 @@ export const updateMeValidator = validate(
   )
 )
 
-
-
+export const changePasswordValidator = validate(
+  checkSchema(
+    {
+      old_password: passwordSchema,
+      password: passwordSchema,
+      confirm_password: confirmPasswordSchema
+    },
+    ['body']
+  )
+)

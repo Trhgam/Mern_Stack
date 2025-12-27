@@ -2,10 +2,12 @@ import express from 'express'
 import usersRouter from './routes/users.routes'
 import databaseServices from './services/database.services'
 import { defaultErrorHandeler } from './middlewares/error.middleware'
+import mediaRouter from './routes/media.routers'
+import { initFolder } from './utils/file'
 
 const app = express() //dựng lên server
 databaseServices.connect()
-
+initFolder()
 // const usersRouter = express.Router()
 const PORT = 3000
 
@@ -18,6 +20,7 @@ app.use(express.json()) //trước mọi thứ phải có json //trc khi len ser
 // })
 
 app.use('/users', usersRouter)
+app.use('/medias', mediaRouter)
 // //
 //hệ thống Error Handler Tổng
 // app.use((err, req, res, next) => {
