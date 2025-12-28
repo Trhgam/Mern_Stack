@@ -4,16 +4,17 @@ import databaseServices from './services/database.services'
 import { defaultErrorHandeler } from './middlewares/error.middleware'
 import mediaRouter from './routes/media.routers'
 import { initFolder } from './utils/file'
+import staticRouter from './routes/static.routes'
 
 const app = express() //dựng lên server
 databaseServices.connect()
-initFolder()
+
 // const usersRouter = express.Router()
 const PORT = 3000
 
 app.use(express.json()) //trước mọi thứ phải có json //trc khi len server phai chuyen thanh object
 //ko co no se bi loi ko the doc
-
+initFolder()
 //nếu có ai đó truy cập vào localhost:3000/
 // app.get('/', (req, res) => {
 //   res.send(`Hello`)
@@ -21,6 +22,9 @@ app.use(express.json()) //trước mọi thứ phải có json //trc khi len ser
 
 app.use('/users', usersRouter)
 app.use('/medias', mediaRouter)
+// app.use('/static', staticRouter)
+app.use('/static/video', express.static('uploads/video'))
+//chunk_size
 // //
 //hệ thống Error Handler Tổng
 // app.use((err, req, res, next) => {
