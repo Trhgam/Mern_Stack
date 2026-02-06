@@ -147,7 +147,7 @@ let result = summAll(12, 123, 321, 77, 88, 978);
 console.log(result);
 
 //ngng khác : this là class
-
+//------------------------------------------------------------------------------------------
 //Bài 9 : Number - method
 //không ai dùng js để làm app ngân hàng
 // số trong js có dạng là number
