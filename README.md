@@ -24,8 +24,8 @@ Dự án lưu trữ lộ trình học tập và thực hành Fullstack JavaScrip
 
 1. **Clone repository:**
    ```bash
-   git clone [https://github.com/Trhgam/Mern_Stack.git](https://github.com/Trhgam/Mern_Stack.git)
-  ```
+   git clone [https://github.com/Trhgam/Mern_Stack.git](https://github.com/Trhgam/Mern_Stack.git) ```
+ 
 2. **Truy cập từng chương:**
 Mỗi chương sẽ có các bài tập hoặc project nhỏ riêng biệt. Hãy di chuyển vào từng thư mục để xem chi tiết.
 
