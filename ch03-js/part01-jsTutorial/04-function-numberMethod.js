@@ -149,7 +149,7 @@ console.log(result);
 //ngng khác : this là class
 //------------------------------------------------------------------------------------------
 //Bài 9 : Number - method
-//không ai dùng js để làm app ngân hàng
+// không ai dùng js để làm app ngân hàng
 // số trong js có dạng là number
 // và đối với số nguyên , chỉ đúng khi dưới 15 chữ số
 let x = 999999999999999; //15 số
